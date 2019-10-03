@@ -2,6 +2,7 @@
  * @param {string[]} strs
  * @return {string}
  */
+// 92% faster and 75% better memory than 660,000 / 1,500,000 submissions
 var longestCommonPrefix = function (strs) {
   // edge-cases
   if (strs.length === 0) { // is empty
@@ -10,43 +11,34 @@ var longestCommonPrefix = function (strs) {
   if (strs.length === 1) { // size 1 array
     return strs[0];
   }
-  var strArr = strs.slice().sort((a, b) => b.length - a.length); // sort from greatest to least
-  var hash = {};
-  var res = [];
+  // end edge-cases
 
-  // shift out the shortest
-  var shortestString = strArr.pop(); 
-  // hash the first shortest string
-  for (var i = 0; i < shortestString.length; i++) {
-    if (!hash[i]) {
-      hash[i] = true; 
+  var strArr = strs.sort((a, b) => b.length - a.length); // sort from longest to shortest
+  let shortestString = strArr.pop(), 
+      longestPrefix = shortestString;
+  let sLen = shortestString.length;
+
+  for (var i = 0; i < strArr.length; i++) {
+    var word = strArr[i].substr(0, sLen);
+    if (word === longestPrefix) { // same words
+      continue;
     }
-  }
-
-  for (var i = 0, len = strArr.length; i < len; i++) {
-    // console.log("word", strArr[i]);
-    for (var j = 0; j < shortestString.length; j++) {
-        // console.log('lettering: ',shortestString[j], strArr[i][j])
-        if (shortestString[j] !== strArr[i][j]) {
-          hash[j] = false;
-        }
+    // recursion to compare different words
+    recurse = (word1, word2) => {
+      if (word1 === word2) { // found closest possible prefix
+        longestPrefix = word1; // update longest prefix
+        sLen = word1.length; // update length
+        return;
+      } else {
+        return recurse(word1.substr(0, word1.length-1), word2.substr(0, word2.length-1))
+      }
     }
+    recurse(word, longestPrefix); // flig, flow
   }
-
-  for (var i = 0, len = shortestString.length; i < len; i++) {
-    if (hash[i] === false) {
-      break;
-    } else if (hash[i] === true) {
-      res.push(shortestString[i]);
-    }
-  }
-
-  // console.log('\n', shortestString, strArr.join(' '), hash);
-  // console.log('test:', res);
-  return res.length ? res.join('') : '';
+  return longestPrefix;
 };
 
-var ex1 = ["flower", "flow", "flight", "flounder"];
+var ex1 = ["flower", "flow", "flight"];
 var ex2 = ["dog", "racecar", "car"];
 var ex3 = ["aa", "aa", "aaa"];
 var ex4 = ["a", "bb", "bbb"];
@@ -54,16 +46,18 @@ var ex5 = ["accumulate", "accuse", "accusation"]
 var ex6 = ["test"]
 var ex7 = ["test", "testes", "tesla"]
 var ex8 = ["aca", "cba"]
+var ex9 = ["abab","aba","abc"];
 
 
-// console.log('ex1: ', longestCommonPrefix(ex1)); // => fl
-// console.log('ex2: ', longestCommonPrefix(ex2)); // => ''
-// console.log('ex3: ', longestCommonPrefix(ex3)); // => aa
-// console.log('ex4: ', longestCommonPrefix(ex4)); // => ''
-// console.log('ex5: ', longestCommonPrefix(ex5)); // => accu
-// console.log('ex6: ', longestCommonPrefix(ex6)); // => test
-// console.log('ex7: ', longestCommonPrefix(ex7)); // => test
-console.log('ex8:', longestCommonPrefix(ex8));
+console.log('ex1: ', longestCommonPrefix(ex1)); // => fl
+console.log('ex2: ', longestCommonPrefix(ex2)); // => ''
+console.log('ex3: ', longestCommonPrefix(ex3)); // => aa
+console.log('ex4: ', longestCommonPrefix(ex4)); // => ''
+console.log('ex5: ', longestCommonPrefix(ex5)); // => accu
+console.log('ex6: ', longestCommonPrefix(ex6)); // => test
+console.log('ex7: ', longestCommonPrefix(ex7)); // => tes
+console.log('ex8:', longestCommonPrefix(ex8)); // => ''
+console.log('ex9: ', longestCommonPrefix(ex9)); // => ab
 
 
 // for (var c = 0; c < shortestString.length; c++) {
