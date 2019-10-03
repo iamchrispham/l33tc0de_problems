@@ -70,19 +70,13 @@ var romanToInt = function(s) {
     let prevVal;
     for (var i = 0; i < str.length; i++) {
       var currVal = romanNums[str[i]];
-      console.log(`currVal: ${currVal}`);
       if (prevVal < currVal) {
-        console.log('>', i, result)
         result += currVal - prevVal*2;
-        console.log('test:', result, currVal, prevVal);
       } else {
         result += currVal;
       }
-      console.log(`prevVal: ${prevVal}`)
       prevVal = romanNums[str[i]];
-
     }
-
     return result;
 };
 
