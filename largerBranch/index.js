@@ -9,8 +9,6 @@ class Node {
 class BST {
 	constructor() {
 		this.root = null;
-		this.sumLeft = 0;
-		this.sumRight = 0;
 	}
 
 	insert(data) {
@@ -22,38 +20,74 @@ class BST {
 	}
 
 	insertNode(node, newNode) {
-		if (newNode.data < node.data) {
-			if (node.right === null)
-				node.right = newNode;
-			else
-				this.insertNode(node.right, newNode);
-		}
-		else {
+		if (node.data < newNode.data) {
 			if (node.left === null)
 				node.left = newNode;
 			else
 				this.insertNode(node.left, newNode);
 		}
+		else {
+			if (node.right === null)
+				node.right = newNode;
+			else
+				this.insertNode(node.right, newNode);
+		}
+	}
+
+	depthFirst(node) {
+		let current = node || this.root;
+		if (current.left) {
+			this.depthFirst(current.left);
+		}
+		if (current.right) {
+			this.depthFirst(current.right);
+		}
+	}
+
+	sumBranch(node) {
+		let current = node;
+		let sumTotal = 0;
+		while (current) {
+			sumTotal += current.data;
+			if (current.left) {
+				current = current.left;
+			} else if (current.right) {
+				current = current.right;
+			} else {
+				break;
+			}
+		}
+		return sumTotal;
 	}
 }
 
 
 const solution = (arr) => {
 	// Type your solution here 
-	var tree = new BST();
+	var tree = new BST(), leftsum, rightsum, verdict;
+	if (arr.length === 0) {
+		return '';
+	}
 	for (var i = 0; i < arr.length; i++) {
 		if (arr[i] !== -1) {
-			console.log('inserting: ', arr[i]);
+			// console.log('inserting: ', arr[i]);
 			tree.insert(arr[i]);
 		}
 	}
-	console.log(tree);
+	console.log('leftsum:', tree.sumBranch(tree.root.left))
+	console.log('rightsum:', tree.sumBranch(tree.root.right));
+	leftsum = tree.sumBranch(tree.root.left);
+	rightsum = tree.sumBranch(tree.root.right);
+
+	return leftsum === rightsum ? '' : leftsum > rightsum ? "left" : "right";
 };
 /*
 			3
 		6	  2
-	9	 10		9
+	9	 10
 */
 
 
 console.log(solution([3, 6, 2, 9, -1, 10]));
+console.log(solution([3, 6, 2]));
+console.log(solution([]));
