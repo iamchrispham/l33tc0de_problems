@@ -1,41 +1,45 @@
 class Node {
-	constructor(data) {
-		this.data = data;
+	constructor(val) {
+		this.value = val;
 		this.left = null;
 		this.right = null;
 	}
-};
+}
 
 class BST {
 	constructor() {
 		this.root = null;
 	}
 
-	insert(data) {
-		var newNode = new Node(data);
-		if (this.root === null)
-			this.root = newNode;
-		else
-			this.insertNode(this.root, newNode);
-	}
-
-	insertNode(node, newNode) {
-		if (node.data < newNode.data) {
-			if (node.left === null)
-				node.left = newNode;
-			else
-				this.insertNode(node.left, newNode);
-		}
+	insert(value) {
+		let node = new Node(value);
+		if (!this.root) this.root = node;
 		else {
-			if (node.right === null)
-				node.right = newNode;
-			else
-				this.insertNode(node.right, newNode);
-		}
+			let current = this.root;
+			while (!!current) {
+				if (node.value < current.value) {
+					if (!current.left) {
+						current.left = node;
+						break;
+					}
+					current = current.left;
+				} else if (node.value > current.value) {
+					if (!current.right) {
+						current.right = node;
+						break;
+					}
+					current = current.right;
+				}
+				else {
+					break;
+				}
+			}
+		} return this;
 	}
 
 	depthFirst(node) {
 		let current = node || this.root;
+		console.log(current.value);
 		if (current.left) {
 			this.depthFirst(current.left);
 		}
@@ -43,51 +47,32 @@ class BST {
 			this.depthFirst(current.right);
 		}
 	}
-
-	sumBranch(node) {
-		let current = node;
-		let sumTotal = 0;
-		while (current) {
-			sumTotal += current.data;
-			if (current.left) {
-				current = current.left;
-			} else if (current.right) {
-				current = current.right;
-			} else {
-				break;
-			}
-		}
-		return sumTotal;
-	}
 }
-
 
 const solution = (arr) => {
 	// Type your solution here 
-	var tree = new BST(), leftsum, rightsum, verdict;
-	if (arr.length === 0) {
+	if (!arr.length) {
 		return '';
 	}
+	let tree = new BST();
+	let leftSum, rightSum;
 	for (var i = 0; i < arr.length; i++) {
 		if (arr[i] !== -1) {
-			// console.log('inserting: ', arr[i]);
 			tree.insert(arr[i]);
 		}
 	}
-	console.log('leftsum:', tree.sumBranch(tree.root.left))
-	console.log('rightsum:', tree.sumBranch(tree.root.right));
-	leftsum = tree.sumBranch(tree.root.left);
-	rightsum = tree.sumBranch(tree.root.right);
-
-	return leftsum === rightsum ? '' : leftsum > rightsum ? "left" : "right";
+	console.log(tree.depthFirst());
+	// console.log(hashmap.left, hashmap.right);
+	// console.log('left:', leftSum, ' right:', rightSum);
+	// return leftSum === rightSum ? '' : leftSum > rightSum ? 'Left' : 'Right';
+	return '';
 };
-/*
-			3
-		6	  2
-	9	 10
-*/
+var ex2 = [1, 4, 100, 5] // "Right"
+var ex3 = [1, 10, 5, 1, 0, 6] // ""
 
 
-console.log(solution([3, 6, 2, 9, -1, 10]));
-console.log(solution([3, 6, 2]));
-console.log(solution([]));
+console.log(solution(ex2)); // Right
+// console.log(solution([3, 6, 2, 9, -1, 10])); // "Left"
+// console.log(solution(ex3)); // ""
+
+// TODO: implement rebalance function for BST
