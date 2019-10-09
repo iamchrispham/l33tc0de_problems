@@ -57,10 +57,10 @@ insertNode(node, newNode)
 
 const solution = (arr) => {
   // Type your solution here 
-  var BST = new BST();
-  BST.insert(arr[0])
-  console.log(BST);
-
+	var tree = new BST();
+	tree.insert(arr[0]);
+	console.log(tree);
 };
+
 
 console.log(solution([3,6,2,9,-1,10]));
