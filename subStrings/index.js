@@ -16,17 +16,20 @@ function subStrings(str) {
       if(result.indexOf(substr) === -1) result.push(substr);
     }
   }
+
   return result
     .reduce((acc, substr) => {
       if (vowels.has(substr[0]) && consonants.has(substr[substr.length-1])) {
         acc.push(substr)
       }
       return acc;
-    }, [])[0];
+    }, [])[0] || '';
 }
 
-var ex1 = 'abc'; // abc
+var ex1 = 'abc'; // ab
 var ex2 = 'aba'; // ab
 var ex3 = 'aaa'; // ''
 
 console.log(subStrings(ex1));
+console.log(subStrings(ex2));
+console.log(subStrings(ex3));
