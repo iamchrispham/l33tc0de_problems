@@ -46,3 +46,4 @@ end
 function Queue.front (list)
 	return list[first];
 end
+
