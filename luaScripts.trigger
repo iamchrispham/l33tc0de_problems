@@ -178,37 +178,14 @@ end</script>
 				</regexCodePropertyList>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-				<name>endRodding</name>
-				<script>if (isRodding == true) then
-	send("dance")
-	isRodding = false;
-end</script>
-				<triggerType>0</triggerType>
-				<conditonLineDelta>0</conditonLineDelta>
-				<mStayOpen>0</mStayOpen>
-				<mCommand></mCommand>
-				<packageName></packageName>
-				<mFgColor>#ff0000</mFgColor>
-				<mBgColor>#ffff00</mBgColor>
-				<mSoundFile></mSoundFile>
-				<colorTriggerFgColor>#000000</colorTriggerFgColor>
-				<colorTriggerBgColor>#000000</colorTriggerBgColor>
-				<regexCodeList>
-					<string>^You don't see a (.*) here!$</string>
-				</regexCodeList>
-				<regexCodePropertyList>
-					<integer>1</integer>
-				</regexCodePropertyList>
-			</Trigger>
-			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>put rod</name>
-				<script>if (isRodding == true and rodCount &lt; 6) then
-	send("imbue armor")
--- elseif (rodCount == 6) then
-	-- rodBox = rodBox + 1
-	-- echo('\nadvancing to next rodbox: rods' .. rodBox .. '\n')
-	-- send("put rod in rods" .. rodBox)
-	-- rodCount = 0;
+				<script>if (isRodding == true and rodCount &lt; 6 and totalImbuesUsed &lt; 31) then
+	send("imbue armor", false)
+	totalImbuesUsed = totalImbuesUsed + 1;
+elseif (totalImbuesUsed == 31) then
+	echo("\nImbues Complete for " .. totalImbuesUsed .. " items.")
+	isRodding = false;
+	send("wear token of the six worlds", false);
 end</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
@@ -300,7 +277,7 @@ end</script>
 				</regexCodePropertyList>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-				<name>free action</name>
+				<name>mapr-&gt;free action</name>
 				<script>isMaprTrue = true;
 if (isPartied == false) then
 	if (isWielded == true) then
@@ -465,9 +442,10 @@ end</script>
 					<integer>2</integer>
 				</regexCodePropertyList>
 			</Trigger>
-			<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>You protect Ramuh (self-prot)</name>
-				<script></script>
+				<script>test("self-prot: " .. spell)
+setBoolForSpell(spell);</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
@@ -478,8 +456,12 @@ end</script>
 				<mSoundFile></mSoundFile>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
-				<regexCodeList />
-				<regexCodePropertyList />
+				<regexCodeList>
+					<string>You protect Ramuh.</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>0</integer>
+				</regexCodePropertyList>
 			</Trigger>
 		</TriggerGroup>
 		<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -725,7 +707,7 @@ send("use remedy at " .. member)</script>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>partyMemberLeft</name>
-				<script></script>
+				<script>expandAlias('loadparty');</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
@@ -1060,7 +1042,6 @@ end</script>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>waterbreathing</name>
 				<script>if (inCombat == false) then
-	expandAlias("wl")
 	expandAlias("wb me")
 end</script>
 				<triggerType>0</triggerType>
@@ -1375,6 +1356,9 @@ send("assess me")</script>
 if (isLootedRoom == true) then
 	isLootedRoom = false;
 end
+if (isBackstabbing ~= false) then
+	isBackstabbing = false;
+end
 if (isPartied == false) then
 	expandAlias('dues');
 end</script>
@@ -1421,7 +1405,7 @@ end</script>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>uninvis</name>
-				<script>if (isInviz == true) then
+				<script>if (isInviz ~= false) then
 	isInviz = false;
 end</script>
 				<triggerType>0</triggerType>
@@ -1443,7 +1427,7 @@ end</script>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>invis</name>
-				<script>if (isInviz == false) then
+				<script>if (isInviz ~= true) then
 	isInviz = true;
 end</script>
 				<triggerType>0</triggerType>
@@ -1518,9 +1502,19 @@ echo(' isBackstabbing: ' .. tostring(isBackstabbing) .. ' Tfisting: ' .. tostrin
 					<script>hpPercent = tonumber(matches[4]);
 spPercent = tonumber(matches[7]);
 epPercent = tonumber(matches[10]);
+checkHealthMaxes();
+echo(" *testmax: " .. tostring(checkHealthMaxes()));
 if (inRegen == true and (inCombat == false and isCasting == false)) then
 	if ((epPercent &gt;= 84 and hpPercent &lt;= 75) or hpPercent &lt;= 25) then
 		tempTimer(1, function () expandAlias("heal2") end);
+	end
+end
+
+-- emergency hp levels
+if (inCombat) then
+	echo(" HP%:" .. hpPercent);
+	if (hpPercent &lt;= 30) then
+		echo("\n ** WARNING: LOW HP ** ")
 	end
 end</script>
 					<triggerType>0</triggerType>
@@ -1534,7 +1528,7 @@ end</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>^Hp: (.*)/(.*) \[(.*)%\]  Sp: (.*)/(.*) \[(.*)%\]  Ep: (.*)/(.*) \[(.*)%\]$</string>
+						<string>Hp: (.*)/(.*) \[(.*)%\]  Sp: (.*)/(.*) \[(.*)%\]  Ep: (.*)/(.*) \[(.*)%\]$</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>1</integer>
@@ -1615,6 +1609,85 @@ end</script>
 					<integer>0</integer>
 				</regexCodePropertyList>
 			</Trigger>
+			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>full hp/sp/ep</name>
+				<script></script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList />
+				<regexCodePropertyList />
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>full hp</name>
+					<script>isFullHp = true;
+autoStand();</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>You feel fully healed.</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>full sp</name>
+					<script>isFullSp = true;
+autoStand();</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>You sizzle with magical energy.</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>full ep</name>
+					<script>isFullEp = true;
+autoStand();</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>You feel fully recovered.</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+			</TriggerGroup>
 		</TriggerGroup>
 		<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 			<name>shadowtechs</name>
@@ -1856,10 +1929,33 @@ processRepair();</script>
 							<string>That is at its maximum condition.</string>
 							<string>^You repair (.*) to top condition.$</string>
 							<string>^(.*) cannot be repaired any further.$</string>
+							<string>^You repair some of the damage to (.*).$</string>
 						</regexCodeList>
 						<regexCodePropertyList>
 							<integer>2</integer>
 							<integer>1</integer>
+							<integer>1</integer>
+							<integer>1</integer>
+						</regexCodePropertyList>
+					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>item at correct size</name>
+						<script>repairCount = repairCount + 1;
+processResize();</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>^This item is already size (.*).$</string>
+						</regexCodeList>
+						<regexCodePropertyList>
 							<integer>1</integer>
 						</regexCodePropertyList>
 					</Trigger>
@@ -1900,6 +1996,105 @@ processRepair();</script>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
 						<string>^You fix some damage on (.*).$</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>resizes_</name>
+					<script></script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList />
+					<regexCodePropertyList />
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>resize_jewelry</name>
+						<script>processResize('resizing');</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>^You resize the (.*).$</string>
+							<string>You can't use altering on this item.</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>1</integer>
+							<integer>0</integer>
+						</regexCodePropertyList>
+					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>resize_cloth</name>
+						<script>processResize();</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>^You start altering the (.*).$</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>1</integer>
+						</regexCodePropertyList>
+					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>resize_armor</name>
+						<script>processResize('armoring')</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>This armor isn't leather or cloth, and thus cannot be altered.</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>0</integer>
+						</regexCodePropertyList>
+					</Trigger>
+				</TriggerGroup>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>robo_thanks</name>
+					<script>test("robo_thanks");
+tempTimer(5, function () send("thank " .. toLowerCase(matches[2]) .. " robotically") end);</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>^(.*) transfers (.*) to your account.$</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>1</integer>
@@ -2629,7 +2824,7 @@ setTriggerStayOpen("Multi-Line Exits Trigger",1)</script>
 				</Trigger>
 			</TriggerGroup>
 		</TriggerGroup>
-		<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+		<TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 			<name>tfisttrigs</name>
 			<script></script>
 			<triggerType>0</triggerType>
@@ -2713,8 +2908,8 @@ end</script>
 				<name>enemy spotted</name>
 				<script>test('enemy spotted');
 if (inCombat == false and isCasting == false and isWielded == true) then
-	-- tempTimer(1, function() expandAlias("bs")end);
-	expandAlias("bs");
+	tempTimer(1, function() expandAlias("bs") end);
+	-- expandAlias("bs");
 end;</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
@@ -2925,8 +3120,6 @@ end</script>
 				<script>-- test("EQ TICK:");
 if (isBackstabbing == false and inCombat == false and isCasting == false and isLootedRoom == false) then
 	expandAlias("dues");
-elseif (isEsongTrue == false and isIdle()) then
-	expandAlias("esong ");
 elseif (isMasrTrue == false and isIdle()) then
 	expandAlias("masr ");
 elseif (isInviz == false and isCasting == false) then
@@ -3068,7 +3261,7 @@ end</script>
 					<name>disruption field_success</name>
 					<script>backstab(oppExit);
 isDisruptionFieldActive = true;
-temptimer(300, function() isDisruptionFieldActive = false; end);</script>
+temptimer(300, function() echo("\n&gt;isDisruptionFieldActive set to false");isDisruptionFieldActive = false; end);</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -3180,6 +3373,13 @@ end</script>
 	isLootedRoom = false;
 end
 
+if (isBackstabbing == true) then
+	isBackstabbing = false;
+end
+
+if (devoutDir ~= nil) then
+	devoutDir = nil;
+end
 if (assassinDouble ~= 'arterial slash') then
 	echo("\nAssassin Double reset to Arterial Slash");
 	sinDouble('arterial slash');
@@ -3247,13 +3447,13 @@ end</script>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList />
 				<regexCodePropertyList />
-				<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>hp is too low</name>
 					<script>test("hp is too low")
-local threshold = 40;
+local threshold = 45;
 if (inCombat == true and hpPercent &lt;= threshold) then
-	expandAlias(oppExit);
 	expandAlias("inv");
+	expandAlias(oppExit);
 	expandAlias("ret");
 end</script>
 					<triggerType>0</triggerType>
@@ -3420,7 +3620,7 @@ do
 	i = i - 1
 end
 expandAlias("setrod 1")
-
+if totalImbuesUsed ~= 0 then totalImbusedUsed = 0 end;
 -- setrod 1
 -- 'imbue armor' to start rodding</script>
 				<command></command>
@@ -3451,7 +3651,8 @@ send("drop dragonskin cloak")
 send("drop vengeance")
 send("drop brassard")
 send("drop belt")
-send("drop all sheathe")</script>
+send("drop all sheathe")
+echo("\ncommand to rod: grabAllRods");</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^setArmors$</regex>
@@ -3480,8 +3681,7 @@ end</script>
 				<script>if (isMoraleActive == false) then
 	echo("Morale is already active!")
 end
-expandAlias("wl")
-send("cast morale")</script>
+processSpellSupport("morale");</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^mor$</regex>
@@ -3651,7 +3851,7 @@ send("alias qatel dagger");</script>
 				<name>qid</name>
 				<script>echo("attempt \\qatel")
 identifyDtype(matches[2]);
-send("unalias \\qatel");</script>
+send("unalias \\qatel;unalias \\dagger");</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^qid (.*)$</regex>
@@ -3663,6 +3863,13 @@ echo("\nQatel set to: " .. targetPercent)</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^sq (.*)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>qua</name>
+				<script>send("unalias \\qatel")</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^qua$</regex>
 			</Alias>
 		</AliasGroup>
 		<AliasGroup isActive="yes" isFolder="yes">
@@ -3839,7 +4046,7 @@ send("use hamstring at " .. target)</script>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>set atlantis spirit timer</name>
-				<script>seconds = tonumber(matches[2])
+				<script>seconds = tonumber(matches[2]) or '';
 if (seconds == '') then
 	echo("\nTimer set for 5 minutes")
 	tempTimer(300, function () echo("\n5 minute timer is up!"); expandAlias("alert") end);
@@ -4039,8 +4246,7 @@ end</script>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>destroy field</name>
-				<script>expandAlias("wl")
-send("cast destroy field")</script>
+				<script>processSpellSupport("destroy field")</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^df$</regex>
@@ -4081,7 +4287,8 @@ send("sell all " .. item)</script>
 				<script>repairTarget = matches[2];
 repairCount = 1;
 -- check tailoring as default
-send("use tailoring at " .. repairTarget);</script>
+-- send("use tailoring at " .. repairTarget);
+useSkill("altering", repairTarget);</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^arep (.*)$</regex>
@@ -4109,6 +4316,26 @@ test("end");</script>
 				<packageName></packageName>
 				<regex>^robosoff$</regex>
 			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>armor Resize</name>
+				<script>test('ares: ' .. matches[2] .. " " .. matches[3]);
+repairTarget = matches[2];
+repairCount = 1;
+armorSize = matches[3]
+-- check tailoring as default
+send("use altering at " .. repairTarget .. " " .. repairCount .. " to " .. armorSize);
+-- useSkill("altering", repairTarget);</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^ares (.*) (.*)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>cannibalize</name>
+				<script>useSkill('cannibalize armor', matches[2]);</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^rip (.*)$</regex>
+			</Alias>
 		</AliasGroup>
 		<AliasGroup isActive="yes" isFolder="yes">
 			<name>bard</name>
@@ -4118,8 +4345,7 @@ test("end");</script>
 			<regex></regex>
 			<Alias isActive="yes" isFolder="no">
 				<name>soothe the beast</name>
-				<script>expandAlias("wl")
-send("cast soothe the beast")</script>
+				<script>processSpellDamage("soothe the beast");</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^sb$</regex>
@@ -4129,13 +4355,10 @@ send("cast soothe the beast")</script>
 				<script>item = matches[2];
 chainCasting = true;
 mwCount = 1;
-if (isWielded == false) then
-	send('wl')
-end
 if (item == '') then
 	item = 'weapon'
 else
-	send("cast mystic weapon at " .. item)
+	processSpellSupport("mystic weapon", item);
 end</script>
 				<command></command>
 				<packageName></packageName>
@@ -4143,8 +4366,7 @@ end</script>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>ret</name>
-				<script>expandAlias('wl')
-send("cast return")</script>
+				<script>processSpellSupport("return");</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^ret$</regex>
@@ -4159,8 +4381,9 @@ send("cast return")</script>
 			<Alias isActive="yes" isFolder="no">
 				<name>world_transport</name>
 				<script>city = matches[2]
-expandAlias("wl")
-send("cast world transport at " .. city)</script>
+-- expandAlias("wl")
+-- send("cast world transport at " .. city)
+processSpellSupport("world transport", city);</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^wt (.*)$</regex>
@@ -4200,10 +4423,7 @@ send("use practice");</script>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>water breathe</name>
-				<script>-- spell = 'water breathing at ' .. matches[2]
--- send("cast " .. spell)
--- processSpellSupport
-processSpellSupport('water breathing', matches[2]);</script>
+				<script>processSpellSupport('water breathing', matches[2]);</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^wb (.*)$</regex>
@@ -4235,8 +4455,7 @@ end</script>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>engaging banter</name>
-				<script>target = matches[2];
-processSpellDamage('engaging banter', target);</script>
+				<script>processSpellDamage('engaging banter', matches[2]);</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^bt (.*)$</regex>
@@ -4250,17 +4469,14 @@ processSpellDamage('engaging banter', target);</script>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>cure light wounds(clw)</name>
-				<script>memberTarget = matches[2];
-spell = "cure light wounds at " .. memberTarget;
-send("cast " .. spell);</script>
+				<script>processSpellSupport("cure light wounds", matches[2]);</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^clw (.*)$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>identify</name>
-				<script>spell = "identify at " .. matches[2];
-send("cast " .. spell);</script>
+				<script>processSpellSupport('identify', matches[2]);</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^id (.*)$</regex>
@@ -4271,6 +4487,13 @@ send("cast " .. spell);</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^df2$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>soothe the beast</name>
+				<script>processSpellDamage("soothe the beast", matches[2]);</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^sb (.*)$</regex>
 			</Alias>
 		</AliasGroup>
 		<AliasGroup isActive="yes" isFolder="yes">
@@ -4532,6 +4755,13 @@ send("down");</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^send (.*)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>getMaxes</name>
+				<script>echo("\nHP%: " .. hpPercent .. "  EP%: " .. epPercent .. "  SP%: " .. spPercent);</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^getmaxes$</regex>
 			</Alias>
 		</AliasGroup>
 		<AliasGroup isActive="yes" isFolder="yes">
@@ -4905,6 +5135,37 @@ end</script>
 				</Alias>
 			</AliasGroup>
 		</AliasGroup>
+		<AliasGroup isActive="yes" isFolder="yes">
+			<name>queueSpells</name>
+			<script></script>
+			<command></command>
+			<packageName></packageName>
+			<regex></regex>
+			<Alias isActive="yes" isFolder="no">
+				<name>spellList</name>
+				<script></script>
+				<command></command>
+				<packageName></packageName>
+				<regex></regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>showqueue</name>
+				<script>echo("\nspellList: " .. tostring(spellList));</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^showqueue$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>enqueue</name>
+				<script>str = matches[2];
+test('enqueue: ' .. str .. tostring(spellList));
+Queue.enqueue(spellList, str);
+echo("\n&gt; Enqueue'd .. [ " .. str .. " ]");</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^enqueue (.*)$</regex>
+			</Alias>
+		</AliasGroup>
 	</AliasPackage>
 	<ActionPackage />
 	<ScriptPackage>
@@ -5247,7 +5508,7 @@ function useSkill(skil, targ)
   	send('use ' .. skill)
   else
   	skill = skil .. " at " .. targ;
-  	send("use " .. skill .. " at " .. target)
+  	send("use " .. skill)
   end
 end</script>
 			<eventHandlerList />
@@ -5377,16 +5638,14 @@ end</script>
 -------------------------------------------------
 -- Queue : LIFO
 
-function QueueNew ()
-	return {first = 0, last = -1}
-end
-
 Queue = {};
 function Queue.new()
 	return {first = 0, last = -1}
 end
 
 function Queue.enqueue (list, value) -- push to front of queue
+	echo("\n inside queue enqueue ");
+	echo("\n&gt; List: " .. tostring(list) .. " Value: " .. tostring(value));
 	local first = list.first - 1;
 	list.first = first;
 	list[first] = value;
@@ -5417,7 +5676,23 @@ end
 
 function Queue.front (list)
 	return list[first];
+end
+
+function Queue.test ()
+	echo("\nQueue.test")
+	return true;
 end</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>testQueue</name>
+					<packageName></packageName>
+					<script>-------------------------------------------------
+--         Put your Lua functions here.        --
+--                                             --
+-- Note that you can also use external scripts --
+-------------------------------------------------
+</script>
 					<eventHandlerList />
 				</Script>
 			</ScriptGroup>
@@ -5466,6 +5741,15 @@ function processInvocation(spellName, targ)
 		send("cast " .. spellName .. " at " .. monsterTarget);
 	else
 		send("cast " .. spellName);
+	end
+end
+
+function setBoolForSpell(spellName)
+echo("\nSetting to true for spell: " .. spellName);
+	if (spellName == 'mystic warrior') then
+		isMaprTrue = true;
+	elseif (spellName == 'major sonic resistance') then
+		isMasrTrue = true;
 	end
 end
 
@@ -7822,10 +8106,10 @@ registerAnonymousEventHandler("onPrompt", "map.eventHandler")
 function backstab(exit)
 	expandAlias("inv")
 	expandAlias(exit);
-	tempTimer(2, function () 
-		if (isBackstabbing == true) then
-		isBackstabbing = false;
-		end
+	tempTimer(2.2, function () 
+		-- if (isBackstabbing == true) then
+		-- isBackstabbing = false;
+		-- end
 		expandAlias(oppExit);
 		expandAlias("bs");
 		end)
@@ -7846,6 +8130,7 @@ end</script>
 -- Note that you can also use external scripts --
 -------------------------------------------------
 
+isAutoStandActive = false;
 
 function checkForRegen()
 test("checkForRegen(): " .. epPercent)
@@ -7858,6 +8143,16 @@ function checkToMasr()
 	if (isMasrTrue == false) then
 		echo("\ninsert masr code here")
 	end
+end
+
+function autoStand()
+  if (isTfisting and isIdle() and not isAutoStandActive) then
+    if (isFullHp and isFullSp and isFullEp) then
+  		echo("\nEmitting temptimer for 600 seconds to stand");
+			isAutoStandActive = true;
+    	tempTimer(600, function() isAutoStandActive = false;send("stand") end);
+    end
+  end
 end</script>
 			<eventHandlerList />
 		</Script>
@@ -7919,7 +8214,22 @@ function processRepair(skillName, target)
 		repairTarget = target;
 		send("use " .. repairSkill .. " at " .. repairTarget .. " " .. repairCount);
 	end
-end</script>
+end
+
+function processResize(skillName, target, size)
+	if(skillName == nil and target == nil and size == nil) then
+		send("use " .. resizeSkill .. " at " .. repairTarget .. " " .. repairCount .. " to " .. armorSize);
+	elseif (skillName ~= nil and target ~= nil and size ~= nil) then
+		resizeSkill = skillName;
+		repairTarget = target;
+		armorSize = size;
+		send("use " .. resizeSkill .. " at " .. repairTarget .. " " .. repairCount .. " to " .. armorSize);
+	elseif(skillName ~=nil and target == nil and size == nil) then
+		resizeSkill = skillName
+		send("use " .. resizeSkill .. " at " .. repairTarget .. " " .. repairCount .. " to " .. armorSize);
+	end
+end
+		</script>
 			<eventHandlerList />
 		</Script>
 		<Script isActive="yes" isFolder="no">
@@ -7931,6 +8241,8 @@ end</script>
 -- Note that you can also use external scripts --
 -------------------------------------------------
 armorCount = 0;
+armorSize = nil;
+resizeSkill = 'altering';
 repairCount = 1;
 repairTarget = '';
 repairSkill = 'tailoring';
@@ -7961,7 +8273,19 @@ end;
 
 function checkCombatState()
 	return inCombat;
-end;</script>
+end;
+
+function checkHealthMaxes()
+-- check booleans for health maxes
+  if (hpPercent &lt; 100) then
+  	isFullHp = false;
+  elseif (spPercent &lt; 100) then
+  	isFullSp = false;
+  elseif (epPercent &lt; 100) then
+  	isFullEp = false;
+  end
+	return isFullHp and isFullSp and isFullEp;
+end</script>
 			<eventHandlerList />
 		</Script>
 	</ScriptPackage>

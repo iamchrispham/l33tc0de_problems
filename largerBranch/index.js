@@ -76,3 +76,11 @@ console.log(solution(ex2)); // Right
 // console.log(solution(ex3)); // ""
 
 // TODO: implement rebalance function for BST
+
+
+/*
+			3
+		6	  2
+	9  10
+
+*/
