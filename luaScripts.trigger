@@ -1705,8 +1705,11 @@ end</script>
 					<script>isFullHp = true;
 autoStand();
 if (checkHealthMaxes() and isTfisting == true) then
+	if(isCrated == true) then
+		send("out")
+	end
 	if (isMasrTrue == false) then 
-		expandAlias("masr me");
+		expandAlias("esong");
 	elseif (isWielded == false or isWieldingLute == true) then
 		expandAlias("wep");
 	end
@@ -1731,7 +1734,17 @@ end</script>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>full sp</name>
 					<script>isFullSp = true;
-autoStand();</script>
+autoStand();
+if (checkHealthMaxes() and isTfisting == true) then
+	if(isCrated == true) then
+		send("out")
+	end
+	if (isMasrTrue == false) then 
+		expandAlias("esong");
+	elseif (isWielded == false or isWieldingLute == true) then
+		expandAlias("wep");
+	end
+end</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -1752,7 +1765,17 @@ autoStand();</script>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>full ep</name>
 					<script>isFullEp = true;
-autoStand();</script>
+autoStand();
+if (checkHealthMaxes() and isTfisting == true) then
+	if(isCrated == true) then
+		send("out")
+	end
+	if (isMasrTrue == false) then 
+		expandAlias("esong");
+	elseif (isWielded == false or isWieldingLute == true) then
+		expandAlias("wep");
+	end
+end</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -1896,6 +1919,85 @@ end</script>
 					</regexCodePropertyList>
 				</Trigger>
 			</TriggerGroup>
+			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>crate</name>
+				<script></script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList />
+				<regexCodePropertyList />
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>uncrated</name>
+					<script>test('uncrated');
+isCrated = false;</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>You lift up the box and step out from under it.</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>crated</name>
+					<script>test('crated');
+isCrated = true;</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>You try to pull the wooden crate over your head.</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+			</TriggerGroup>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>disruption field</name>
+				<script>isDisruptionFieldActive = false;
+echo("\nDisruption Field is Down!\n");</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>The disruption field fades away.</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>0</integer>
+				</regexCodePropertyList>
+			</Trigger>
 		</TriggerGroup>
 		<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 			<name>shadowtechs</name>
@@ -2393,23 +2495,23 @@ send("use stab at " .. monsterTarget)</script>
 					<integer>1</integer>
 				</regexCodePropertyList>
 			</Trigger>
-			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>room clear</name>
 				<script>-- if in combat and target is not there
-if (matches[2] ~= 'monster') then
-	monsterTarget = 'monster';
-elseif (matches[2] == 'monster') then
-	if (isBackstabbing == true) then
-		isBackstabbing = false;
-	end
-  if (isBlinded ~= true and inCombat) then
-  	expandAlias("stb")
-  end
-end
-
-if (isPartied == false) then
-	expandAlias("dues");
-end</script>
+-- if (matches[2] ~= 'monster') then
+	-- monsterTarget = 'monster';
+-- elseif (matches[2] == 'monster') then
+	-- if (isBackstabbing == true) then
+		-- isBackstabbing = false;
+	-- end
+  -- if (isBlinded ~= true and inCombat) then
+  	-- expandAlias("stb")
+  -- end
+-- end
+-- 
+-- if (isPartied == false) then
+	-- expandAlias("dues");
+-- end</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
@@ -2492,8 +2594,11 @@ expandAlias("stb");</script>
 				<regexCodeList />
 				<regexCodePropertyList />
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-					<name>backstab</name>
-					<script>if (isPartied == false) then
+					<name>backstab (tfist)</name>
+					<script>if (monsterTarget == 'monster' or monsterTarget == 'nil') then
+	monsterTarget = matches[2]:lower();
+end
+if (isPartied == false) then
 	backstab(oppExit);
 end</script>
 					<triggerType>0</triggerType>
@@ -2509,7 +2614,7 @@ end</script>
 					<regexCodeList>
 						<string>^Ducking behind (.*) with (.*) skill, you backstab (.*)!</string>
 						<string>Ramuh disrupts an image of Devout, pissing them off.</string>
-						<string>^Devout concentrates and projects (.*) chi blast of mental force at you!$</string>
+						<string>^Devout concentrates and projects (.*) of mental force at you!$</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>1</integer>
@@ -2567,12 +2672,39 @@ end
 						<integer>1</integer>
 					</regexCodePropertyList>
 				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>backstab rounds</name>
+					<script>local backstabStr = string.len(matches[2])
+if (inCombat == false) then
+  if (tonumber(backstabStr) &gt;= 5) then
+  	expandAlias("bs")
+  end
+else -- reroute focused backstab to stab
+	expandAlias("stb");
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>^Backstab: (.*)$</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+					</regexCodePropertyList>
+				</Trigger>
 			</TriggerGroup>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>stab if idle and in combat</name>
 				<script>if (isCasting == false and epPercent &gt; epThreshold) then
 test('stab if idle and in combat');
-	expandAlias('stb');
+	tempTimer(0.5, function() if(isCasting == false) then echo('\n***' .. tostring(isCasting)) expandAlias('stb') end; end);
 end</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
@@ -2612,33 +2744,6 @@ echo("\nResetting stab target: [ " .. monsterTarget .. " ] ");</script>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
 					<string>^You don't see a (.*) here.$</string>
-				</regexCodeList>
-				<regexCodePropertyList>
-					<integer>1</integer>
-				</regexCodePropertyList>
-			</Trigger>
-			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-				<name>backtab rounds</name>
-				<script>local backstabStr = string.len(matches[2])
-if (inCombat == false) then
-  if (backStabStr &gt;= 5) then
-  	expandAlias("bs")
-  end
-else -- reroute focused backstab to stab
-	expandAlias("stb");
-end</script>
-				<triggerType>0</triggerType>
-				<conditonLineDelta>0</conditonLineDelta>
-				<mStayOpen>0</mStayOpen>
-				<mCommand></mCommand>
-				<packageName></packageName>
-				<mFgColor>#ff0000</mFgColor>
-				<mBgColor>#ffff00</mBgColor>
-				<mSoundFile></mSoundFile>
-				<colorTriggerFgColor>#000000</colorTriggerFgColor>
-				<colorTriggerBgColor>#000000</colorTriggerBgColor>
-				<regexCodeList>
-					<string>^Backstab: (.*)$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>1</integer>
@@ -3097,7 +3202,7 @@ setTriggerStayOpen("Multi-Line Exits Trigger",1)</script>
 				</Trigger>
 			</TriggerGroup>
 		</TriggerGroup>
-		<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+		<TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 			<name>tfisttrigs</name>
 			<script></script>
 			<triggerType>0</triggerType>
@@ -3153,28 +3258,6 @@ end</script>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>1</integer>
-				</regexCodePropertyList>
-			</Trigger>
-			<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-				<name>new round</name>
-				<script>if ((isTfisting == true and isCasting == false) or (isBackstabbing == true and isCasting == true))then
-	expandAlias("stb");
-end</script>
-				<triggerType>0</triggerType>
-				<conditonLineDelta>0</conditonLineDelta>
-				<mStayOpen>0</mStayOpen>
-				<mCommand></mCommand>
-				<packageName></packageName>
-				<mFgColor>#ff0000</mFgColor>
-				<mBgColor>#ffff00</mBgColor>
-				<mSoundFile></mSoundFile>
-				<colorTriggerFgColor>#000000</colorTriggerFgColor>
-				<colorTriggerBgColor>#000000</colorTriggerBgColor>
-				<regexCodeList>
-					<string> *** NEW ROUND ***</string>
-				</regexCodeList>
-				<regexCodePropertyList>
-					<integer>2</integer>
 				</regexCodePropertyList>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -3396,17 +3479,23 @@ end</script>
 if(isBackstabbing == true) then
 	isBackstabbing = false;
 end
-if (isBackstabbing == false and inCombat == false and isCasting == false and isLootedRoom == false) then
-	expandAlias("dues");
-elseif (epPercent &lt; 50 and inRegen == false and isIdle()) then
-	expandAlias("inn");
-elseif ((isMasrTrue == false or isEsongTrue == false) and isIdle()) then
-	expandAlias("esong ");
-elseif (isInviz == false and isCasting == false) then
-	if (isWieldingLute == true or isWielded == false) then
-		expandAlias("wep");
+if (not isCrated) then
+  if (isBackstabbing == false and inCombat == false and isCasting == false and isLootedRoom == false) then
+  	expandAlias("dues");
+  elseif (epPercent &lt; 50 and inRegen == false and isIdle()) then
+  	expandAlias("inn");
+  elseif ((isMasrTrue == false or isEsongTrue == false) and isIdle()) then
+  	expandAlias("esong ");
+  elseif (isInviz == false and isCasting == false) then
+  	if (isWieldingLute == true or isWielded == false) then
+  		expandAlias("wep");
+  	end
+  	expandAlias("inv");
+  end
+else
+	if(checkHealthMaxes()) then
+		send("out");
 	end
-	expandAlias("inv");
 end
 
 -- TODO: auto-masr
@@ -3542,12 +3631,13 @@ end</script>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>disruption field_success</name>
-					<script>backstab(oppExit);
+					<script>test("disruption field_success: isDisruptionFieldActive: " .. tostring(isDisruptionFieldActive));
+backstab(oppExit);
 isDisruptionFieldActive = true;
 tempTimer(300, function() 
-echo("\n&gt;isDisruptionFieldActive set to false");
-isDisruptionFieldActive = false;
- end);</script>
+    echo("\n&gt;isDisruptionFieldActive set to false");
+    isDisruptionFieldActive = false;
+ 	end);</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -3606,7 +3696,11 @@ devoutDir = matches[2];
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>do I track that devout?</name>
 					<script>if (inCombat == false and isBackstabbing == true) then
-	expandAlias(devoutDir);
+	local dir = devoutDir;
+	if (dir) then
+		expandAlias("inv");
+		expandAlias(devoutDir);
+	end
 end</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
@@ -3740,7 +3834,8 @@ local threshold = 45;
 if (inCombat == true and hpPercent &lt;= threshold) then
 	expandAlias("inv");
 	expandAlias(oppExit);
-	tempTimer(1.8, function() expandAlias("ret") end);
+	tempTimer(1.5, function() expandAlias("ret") end);
+	tempTimer(2.2, function() send("enter crate") end);
 end</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
@@ -3803,6 +3898,109 @@ end</script>
 					<integer>0</integer>
 				</regexCodePropertyList>
 			</Trigger>
+			<TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>auto-wander</name>
+				<script></script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList />
+				<regexCodePropertyList />
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>wanderer tfist</name>
+					<script>test("wanderer: " .. matches[2]);
+local directions = {};
+for w in matches[2]:gmatch("([^,]+)") do 
+	table.insert(directions, w);
+end
+echo("\npossible dirs: " .. table.getn(directions));
+
+local randomNum = math.random(table.getn(directions));
+local randomDir = directions[randomNum];
+echo("\nrandom dir: " .. randomDir .. " | prevDir: " .. oppExit);
+tempTimer(4, function() 
+  	if(isIdle()) then 
+  		goRandomDir(randomDir, n);
+		elseif (inCombat) then
+			echo("\nTODO: emit random direction") 
+  	end;
+	end);
+directions = nil;</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>^Cloudy corridor \((.*)\)$</string>
+						<string>^Warehouse \((.*)\)$</string>
+						<string>^Tunnel \((.*)\)$</string>
+						<string>^Barracks \((.*)\)$</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>emit random dir</name>
+					<script>if (isMasrTrue) then
+	goRandomDir();
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Ramuh protects you.</string>
+						<string>Ramuh is already protected by major sonic resistance</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>main platform</name>
+					<script>tempTimer(1, function() send("up") end);</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Main platform (n,up)</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>3</integer>
+					</regexCodePropertyList>
+				</Trigger>
+			</TriggerGroup>
 		</TriggerGroup>
 		<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 			<name>auto-regen</name>
@@ -4539,17 +4737,19 @@ end</script>
 			<Alias isActive="yes" isFolder="no">
 				<name>stab_default</name>
 				<script>-- if (inCombat == true) then
+monsterTarget = monsterTarget or '';
 test("stab_default: " .. monsterTarget)
-monsterTarget = monsterTarget or nil;
 if (isWielded == false or isWieldingLute) then
 	expandAlias("wep");
 end
-if (monsterTarget ~= 'monster' and monsterTarget ~= '') then
+if (monsterTarget ~= '' and monsterTarget ~= 'monster') then -- if not monster or '', then target
+	echo("\nstab case: 1\n")
   send("use stab at " .. monsterTarget)
- else
- monsterTarget = 'monster';
- skill = "stab at monster";
- send("use stab at " .. monsterTarget)
+else
+	echo("\nstab case: 2\n")
+	monsterTarget = 'monster';
+	skill = "stab at monster";
+	send("use stab at " .. monsterTarget)
 end
 -- end</script>
 				<command></command>
@@ -4643,14 +4843,13 @@ end
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>backstab</name>
-				<script>-- test('(bs) : ' .. tostring(isBackstabbing));
+				<script>-- test('(bs) : ' .. tostring(monsterTarget));
 if (isCasting == false and isBackstabbing == false) then
-
 	if (isWieldingLute == true or isWielded == false) then
 		expandAlias("wep");
 	end
 	isBackstabbing = true;
-  if (monsterTarget ~= 'monster' and monsterTarget ~= '') then
+  if (monsterTarget ~= 'monster' and monsterTarget ~= nil and monsterTarget ~= '') then
   	send("use backstab at " .. monsterTarget, false)
   else
     monsterTarget = 'monster';
@@ -5005,7 +5204,8 @@ end</script>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>disruption field</name>
-				<script>processSpellSupport('disruption field');</script>
+				<script>test("disruption field: " .. tostring(isDisruptionFieldActive));
+processSpellSupport('disruption field');</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^df2$</regex>
@@ -5030,6 +5230,14 @@ end</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^sol (.*)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>engaging banter (notarget)</name>
+				<script>monsterTarget = monsterTarget or nil;
+processSpellDamage('engaging banter', monsterTarget);</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^bt$</regex>
 			</Alias>
 		</AliasGroup>
 		<AliasGroup isActive="yes" isFolder="yes">
@@ -5768,6 +5976,47 @@ echo("\n*********");</script>
 				<regex>^dqr$</regex>
 			</Alias>
 		</AliasGroup>
+		<AliasGroup isActive="yes" isFolder="yes">
+			<name>autostuff</name>
+			<script></script>
+			<command></command>
+			<packageName></packageName>
+			<regex></regex>
+			<AliasGroup isActive="yes" isFolder="yes">
+				<name>auto-wander</name>
+				<script></script>
+				<command></command>
+				<packageName></packageName>
+				<regex></regex>
+				<Alias isActive="yes" isFolder="no">
+					<name>auto-wander alias</name>
+					<script>if (matches[2] == 'on') then
+	enableTrigger("auto-wander")
+else
+	disableTrigger("auto-wander")
+end</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^auto-w (.*)$</regex>
+				</Alias>
+			</AliasGroup>
+			<Alias isActive="yes" isFolder="no">
+				<name>auto-all</name>
+				<script>test("auto-all");
+if (matches[2] == 'on') then
+	enableTrigger("auto-wander")
+	enableTrigger("auto-stab")
+	enableTrigger("tfisttrigs")
+else
+	disableTrigger("auto-wander")
+	disableTrigger("auto-stab")
+	disableTrigger("tfisttrigs");
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^auto-all (.*)$</regex>
+			</Alias>
+		</AliasGroup>
 	</AliasPackage>
 	<ActionPackage />
 	<ScriptPackage>
@@ -5924,6 +6173,7 @@ isInviz = false;
 isLootedRoom = false; 
 isDisruptionFieldActive = false;
 isShelterUp = false;
+isCrated = false;
 -- bank
 prevBalance = nil;
 currBalance = nil;
@@ -6372,13 +6622,25 @@ end
 function processSpellDamage(spellName, targ)
 	echo("\nProcessing Damage Spell: " .. spellName .. " | Target: [ " .. tostring(targ) .. " ]");
 	spell = spellName;
-	monsterTarget = targ;
 	expandAlias('wl');
-	if (target ~= nil) then
+	if (monsterTarget ~= nil and monsterTarget ~= '') then
+		echo("\PSD[1]: " .. monsterTarget);
+		monsterTarget = targ;
+		send("cast " .. spellName .. " at " .. monsterTarget);
+	elseif (monsterTarget == '') then
+		echo("\PSD[2]: " .. monsterTarget);
+		monsterTarget = 'monster'
 		send("cast " .. spellName .. " at " .. monsterTarget);
 	else
+		echo("\PSD[3]: should be nil" .. tostring(monsterTarget));
 		send("cast " .. spellName);
 	end
+
+	-- if (monsterTarget ~= nil) then
+		-- send("cast " .. spellName .. " at " .. monsterTarget);
+	-- else
+		-- send("cast " .. spellName);
+	-- end
 end
 
 function processInvocation(spellName, targ)
@@ -8767,9 +9029,10 @@ function checkSafety ()
 			expandAlias(oppExit);
 			expandAlias("bs");
 		else
-			send("\n *** WARNING: Health Low *** \n ")
+			echo("\n *** WARNING: Health Low *** \n ")
 			-- issue shelter or naturally regen
-			-- TODO: create room objects to detect monsters in roomLocked
+			-- TODO: create room objects to detect monsters in room
+			send("enter crate");
 			isBackstabbing = false;
 		end
 end
@@ -8812,6 +9075,11 @@ function autoStand()
     	tempTimer(600, function() isAutoStandActive = false;send("stand") end);
     end
   end
+end
+
+function goRandomDir(dir, n)
+	local direction = dir or oppExit;
+	expandAlias(direction);
 end</script>
 			<eventHandlerList />
 		</Script>
