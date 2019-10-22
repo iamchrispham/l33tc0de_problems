@@ -179,9 +179,8 @@ end</script>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>put rod</name>
-				<script>if (isRodding == true and rodCount &lt; 6 and totalImbuesUsed &lt; 31) then
+				<script>if (isRodding == true and rodCount &lt; 6) then
 	send("imbue armor", false)
-	totalImbuesUsed = totalImbuesUsed + 1;
 elseif (totalImbuesUsed == 31) then
 	echo("\nImbues Complete for " .. totalImbuesUsed .. " items.")
 	isRodding = false;
@@ -826,6 +825,29 @@ send("cast cure light wounds at " .. memberTarget)</script>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
 					<string>^Party info: (.*) joins the party.$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>some stupid vampire is burning alive in the sun</name>
+				<script>target = matches[2]:lower();
+if (isIdle()) then
+	expandAlias("heal " .. target)
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>^(.*) screams in pain as the sunlight burns (.*)!$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>1</integer>
@@ -1588,7 +1610,7 @@ end
 -- emergency hp levels
 if (inCombat) then
 	echo(" HP%:" .. hpPercent);
-	if (hpPercent &lt;= 30) then
+	if (hpPercent &lt;= 42) then
 		echo("\n ** WARNING: LOW HP ** ")
 		playSoundFile([[/System/library/sounds/Ping.aiff]])
 	end
@@ -1766,6 +1788,9 @@ end</script>
 					<name>full ep</name>
 					<script>isFullEp = true;
 autoStand();
+if (wep2 == 'pretty doll' and inRegen) then
+	expandAlias('shel');
+end
 if (checkHealthMaxes() and isTfisting == true) then
 	if(isCrated == true) then
 		send("out")
@@ -1798,7 +1823,7 @@ end</script>
 				<name>speech recognition for backwards speech</name>
 				<script>test("speech recognition for backwards speech: " .. matches[3]);
 echo("\n" .. matches[2] .. " recites forwards, \"" .. firstToUpper(string.reverse(matches[3])) .. "\".");
-send("bard emote strum " .. matches[2] .. " recites forwards, \"" .. firstToUpper(string.reverse(matches[3]):lower()) .. "\".");</script>
+send("bard emote strum " .. matches[2] .. " recites forwards, \"" .. firstToUpper(string.reverse(matches[3]:lower())) .. "\".");</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
@@ -1998,6 +2023,29 @@ echo("\nDisruption Field is Down!\n");</script>
 					<integer>0</integer>
 				</regexCodePropertyList>
 			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>fell asleep in combat</name>
+				<script>if (inCombat == true) then
+	send("wake");
+	expandAlias("stb")
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>You fall asleep.</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>0</integer>
+				</regexCodePropertyList>
+			</Trigger>
 		</TriggerGroup>
 		<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 			<name>shadowtechs</name>
@@ -2032,6 +2080,26 @@ echo("\nDisruption Field is Down!\n");</script>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>2</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>strong poison</name>
+				<script>expandAlias("sp")</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>You create a strong poison.</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>0</integer>
 				</regexCodePropertyList>
 			</Trigger>
 		</TriggerGroup>
@@ -2434,7 +2502,7 @@ tempTimer(5, function () send("thank " .. toLowerCase(matches[2]) .. " robotical
 				</regexCodePropertyList>
 			</Trigger>
 		</TriggerGroup>
-		<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+		<TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 			<name>autostab</name>
 			<script></script>
 			<triggerType>0</triggerType>
@@ -2596,7 +2664,7 @@ expandAlias("stb");</script>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>backstab (tfist)</name>
 					<script>if (monsterTarget == 'monster' or monsterTarget == 'nil') then
-	monsterTarget = matches[2]:lower();
+	monsterTarget = getLastSubstr(matches[2]:lower());
 end
 if (isPartied == false) then
 	backstab(oppExit);
@@ -2704,7 +2772,7 @@ end</script>
 				<name>stab if idle and in combat</name>
 				<script>if (isCasting == false and epPercent &gt; epThreshold) then
 test('stab if idle and in combat');
-	tempTimer(0.5, function() if(isCasting == false) then echo('\n***' .. tostring(isCasting)) expandAlias('stb') end; end);
+	tempTimer(0.5, function() if(isCasting == false) then expandAlias('stb') end; end);
 end</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
@@ -2728,10 +2796,10 @@ end</script>
 				<script>test("stab_target_reset: " .. matches[2]);
 target = matches[2];
 if (target ~= 'monster') then
-	monsterTarget = monster;
+	monsterTarget = 'monster';
 end
 
-echo("\nResetting stab target: [ " .. monsterTarget .. " ] ");</script>
+echo("\nResetting stab target: [ " .. tostring(monsterTarget).. " ] ");</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
@@ -2743,7 +2811,7 @@ echo("\nResetting stab target: [ " .. monsterTarget .. " ] ");</script>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
-					<string>^You don't see a (.*) here.$</string>
+					<string>^You don't see (.*) here.$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>1</integer>
@@ -3475,7 +3543,7 @@ end</script>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>EQ Tick: (tfisttrigs)</name>
-				<script>-- test("EQ TICK:");
+				<script>test("EQ TICK: (tfisttrigs)");
 if(isBackstabbing == true) then
 	isBackstabbing = false;
 end
@@ -3583,8 +3651,13 @@ end</script>
 				<regexCodePropertyList />
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>images casted</name>
-					<script>if (isBackstabbing == true and isDisruptionFieldActive ~= true) then
-	processSpellSupport('disruption field');
+					<script>if (isDisruptionFieldActive == false) then
+	echo("isDisruptionFieldActive is " .. tostring(isDisruptionFieldActive));
+	tempTimer(1.5, function ()
+			if (isBackstabbing == true) then
+				processSpellSupport('disruption field')
+			end
+		end)
 end</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
@@ -3609,7 +3682,9 @@ end</script>
 if (isDisruptionFieldActive == false) then
 	echo("isDisruptionFieldActive is " .. tostring(isDisruptionFieldActive));
 	tempTimer(1.5, function ()
-			processSpellSupport('disruption field')
+			if (isBackstabbing == true) then
+				processSpellSupport('disruption field')
+			end
 		end)
 end</script>
 					<triggerType>0</triggerType>
@@ -3634,7 +3709,7 @@ end</script>
 					<script>test("disruption field_success: isDisruptionFieldActive: " .. tostring(isDisruptionFieldActive));
 backstab(oppExit);
 isDisruptionFieldActive = true;
-tempTimer(300, function() 
+tempTimer(180, function() 
     echo("\n&gt;isDisruptionFieldActive set to false");
     isDisruptionFieldActive = false;
  	end);</script>
@@ -3695,9 +3770,11 @@ devoutDir = matches[2];
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>do I track that devout?</name>
-					<script>if (inCombat == false and isBackstabbing == true) then
+					<script>test("do I track that devout");
+if (inCombat == false and isBackstabbing == true) then
 	local dir = devoutDir;
 	if (dir) then
+		isBackstabbing = false;
 		expandAlias("inv");
 		expandAlias(devoutDir);
 	end
@@ -3760,10 +3837,8 @@ end
 if (devoutDir ~= nil) then
 	devoutDir = nil;
 end
-if (assassinDouble ~= 'arterial slash') then
-	echo("\nAssassin Double reset to Arterial Slash");
-	sinDouble('arterial slash');
-end
+
+sinDouble(adef);
 
 tempTimer(4, function()
 	test("dead temptimer check");
@@ -3859,7 +3934,7 @@ end</script>
 				<name>failed backstab</name>
 				<script>test('failed skill: ' .. skill);
 if (string.find(skill, "backstab")) then
-	send("use " .. skill);
+	backstab(oppExit);
 end</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
@@ -3917,17 +3992,38 @@ end</script>
 					<name>wanderer tfist</name>
 					<script>test("wanderer: " .. matches[2]);
 local directions = {};
+local dir = '';
 for w in matches[2]:gmatch("([^,]+)") do 
-	table.insert(directions, w);
+	if (w == 'e') then
+		dir = 'east';
+	elseif (w == 'w') then
+		dir = 'west'
+	elseif (w == 'n') then
+		dir = 'north'
+	elseif (w == 's') then
+		dir = 'south'
+	else 
+		dir = w;
+	end
+	table.insert(directions, dir);
 end
-echo("\npossible dirs: " .. table.getn(directions));
+numOfDirections = table.getn(directions);
+echo("\npossible dirs: " .. numOfDirections);
 
 local randomNum = math.random(table.getn(directions));
 local randomDir = directions[randomNum];
-echo("\nrandom dir: " .. randomDir .. " | prevDir: " .. oppExit);
+if (randomDir == tostring(Queue.front(dirsQueue))) then -- try to reroll randomization
+	echo ("\nPOSSIBLE LOOP: " .. randomDir);
+	randomNum = math.random(table.getn(directions))
+	randomDir = directions[randomNum];
+	echo("\nRerolled dir to: " .. randomDir);
+end
+echo("\nrandom dir: " .. randomDir .. " | oppExit: " .. oppExit .. " | curExit: " .. curExit .. 
+" | qFront: " .. tostring(Queue.front(dirsQueue)) .. " | qBack: " .. tostring(Queue.back(dirsQueue)));
+-- goRandomDir(randomDir);
 tempTimer(4, function() 
   	if(isIdle()) then 
-  		goRandomDir(randomDir, n);
+  		goRandomDir(randomDir);
 		elseif (inCombat) then
 			echo("\nTODO: emit random direction") 
   	end;
@@ -3948,8 +4044,16 @@ directions = nil;</script>
 						<string>^Warehouse \((.*)\)$</string>
 						<string>^Tunnel \((.*)\)$</string>
 						<string>^Barracks \((.*)\)$</string>
+						<string>^Dining room \((.*)\)$</string>
+						<string>^Water room \((.*)\)$</string>
+						<string>^Meditation chamber \((.*)\)$</string>
+						<string>^Cohesion Chamber \((.*)\)$</string>
 					</regexCodeList>
 					<regexCodePropertyList>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
 						<integer>1</integer>
 						<integer>1</integer>
 						<integer>1</integer>
@@ -4000,6 +4104,52 @@ end</script>
 						<integer>3</integer>
 					</regexCodePropertyList>
 				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>post-dues emit to check</name>
+					<script>tempTimer(20, function()
+	if(not isMasrTrue and isIdle()) then
+		expandAlias("esong ");
+	elseif(isIdle()) then
+		goRandomDir(oppExit);
+	end
+end)</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>You can't see carrion here.</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>hit a wall! (bifrost)</name>
+					<script>send(oppExit);</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>You cannot step through the rune door.</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
 			</TriggerGroup>
 		</TriggerGroup>
 		<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -4020,7 +4170,7 @@ end</script>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>check to innervate</name>
 				<script>if (isPartied == true) then
-	tempTimer(3.5, function() checkToInnervate() end);
+	tempTimer(2.2, function() checkToInnervate() end);
 end</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
@@ -4225,12 +4375,13 @@ expandAlias("setrod 1")
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>setArmorsForRodding</name>
-				<script>send("drop dragonskin cloak")
+				<script>send("drop cots")
 send("drop eye")
 send("drop necklace")
 send("drop tricorn")
 send("drop shoulder guard")
-send("drop epaulet")
+-- send("drop epaulet")
+send("drop dragonskin cloak")
 send("drop machine")
 send("drop moonstone")
 send("drop armwrap")
@@ -4850,6 +5001,7 @@ if (isCasting == false and isBackstabbing == false) then
 	end
 	isBackstabbing = true;
   if (monsterTarget ~= 'monster' and monsterTarget ~= nil and monsterTarget ~= '') then
+		skill = "backstab at " .. monsterTarget;
   	send("use backstab at " .. monsterTarget, false)
   else
     monsterTarget = 'monster';
@@ -4927,6 +5079,34 @@ end</script>
 					<regex>^adef$</regex>
 				</Alias>
 			</AliasGroup>
+			<Alias isActive="yes" isFolder="no">
+				<name>strong poison</name>
+				<script>test("strong poison")
+send("use strong poison at empty vial")</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^sp$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>set adouble default</name>
+				<script>term = matches[2];
+-- TODO: set dfault for adubs
+local adef = '';
+if (term == 'n') then
+	adef = 'nerve strike';
+elseif (term == 'a') then
+	adef = 'arterial slash';
+elseif (term == 'b') then
+	adef = 'arterial slash';
+else
+	adef = 'hamstring';
+end
+
+sinDouble(adef);</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^adef (.*)$</regex>
+			</Alias>
 		</AliasGroup>
 		<AliasGroup isActive="yes" isFolder="yes">
 			<name>merchant</name>
@@ -5975,6 +6155,13 @@ echo("\n*********");</script>
 				<packageName></packageName>
 				<regex>^dqr$</regex>
 			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>dirsQ</name>
+				<script>Queue.display(dirsQueue);</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^dirsq$</regex>
+			</Alias>
 		</AliasGroup>
 		<AliasGroup isActive="yes" isFolder="yes">
 			<name>autostuff</name>
@@ -6110,7 +6297,8 @@ monsterTarget = '';
 target = '';
 wep1 = 'qatel';
 wep2 = 'janbiya';
-defense = '';</script>
+defense = '';
+adefault = 'arterial slash';</script>
 			<eventHandlerList />
 		</Script>
 		<Script isActive="yes" isFolder="no">
@@ -6142,7 +6330,7 @@ assassinDouble = 'arterial slash';
 monsterTarget = '';
 hpThreshold = 15;
 spTheshold = 15;
-epThreshold = 15;
+epThreshold = 20;
 
 -- campfire
 isCampfireActive = false;
@@ -6430,6 +6618,30 @@ function toLowerCase(string) -- lowercase stuff
 end</script>
 					<eventHandlerList />
 				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>grabLastSubstring</name>
+					<packageName></packageName>
+					<script>-------------------------------------------------
+--         Put your Lua functions here.        --
+--                                             --
+-- Note that you can also use external scripts --
+-------------------------------------------------
+
+function split(s, delimiter)
+    result = {};
+    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
+        table.insert(result, match);
+    end
+    return result;
+end
+
+function getLastSubstr(str, delim) 
+	local delim = delim or ' '
+	local str = split(str, delim);
+	return str[table.getn(str)];
+end</script>
+					<eventHandlerList />
+				</Script>
 			</ScriptGroup>
 			<ScriptGroup isActive="yes" isFolder="yes">
 				<name>math</name>
@@ -6509,13 +6721,14 @@ end</script>
 
 Queue = {};
 function Queue.new()
-	return {first = 0, last = -1}
+	return {first = 0, last = -1, size = 0}
 end
 
 function Queue.enqueueLeft (list, value) -- push to front of queue
 	echo("\n inside queue enqueueLeft: " .. value);
 	local first = list.first - 1;
 	list.first = first;
+	list.size = list.size + 1;
 	list[first] = value;
 end
 
@@ -6523,6 +6736,7 @@ function Queue.enqueueRight (list, value)
 	echo("\n inside queue enqueueRight: ".. value);
 	local last = list.last + 1;
 	list.last = last;
+	list.size = list.size + 1;
 	list[last] = value;
 end
 
@@ -6531,6 +6745,7 @@ function Queue.dequeueLeft (list) -- pop left/front
 	if first &gt; list.last then error("Warning: Empty Queue"); end
 	local value = list[first];
 	list[first] = nil;
+	list.size = list.size - 1;
 	list.first = first + 1;
 	return value;
 end
@@ -6540,6 +6755,7 @@ function Queue.dequeueRight (list)
 	if (list.first &gt; last) then error("Warning: Empty Queue"); end
 	local value = list[last];
 	list[last] = nil;
+	list.size = list.size - 1;
 	list.last = last - 1
 	return value;
 end
@@ -6555,7 +6771,7 @@ function Queue.back (list)
 end
 
 function Queue.size (list)
-	return list.last+1;
+	return list.size;
 end
 
 function Queue.clearQueue (list)
@@ -6570,6 +6786,15 @@ echo("\nClearing Queue of table: " .. tostring(list) .. "\n&gt; Keys: ");
 			list[key] = nil;
 		end
 	end
+end
+
+function Queue.display (list)
+echo("\nDIRS: ")
+  for key in pairs(list) do
+  	if (key ~= 'last' and key ~= 'first') then
+  		echo(" " .. list[key]);
+  	end
+  end
 end</script>
 					<eventHandlerList />
 				</Script>
@@ -6623,24 +6848,15 @@ function processSpellDamage(spellName, targ)
 	echo("\nProcessing Damage Spell: " .. spellName .. " | Target: [ " .. tostring(targ) .. " ]");
 	spell = spellName;
 	expandAlias('wl');
-	if (monsterTarget ~= nil and monsterTarget ~= '') then
-		echo("\PSD[1]: " .. monsterTarget);
+	if (targ == nil) then
+		send("cast " .. spellName);
+	elseif (monsterTarget ~= nil and monsterTarget ~= '') then
 		monsterTarget = targ;
 		send("cast " .. spellName .. " at " .. monsterTarget);
 	elseif (monsterTarget == '') then
-		echo("\PSD[2]: " .. monsterTarget);
 		monsterTarget = 'monster'
 		send("cast " .. spellName .. " at " .. monsterTarget);
-	else
-		echo("\PSD[3]: should be nil" .. tostring(monsterTarget));
-		send("cast " .. spellName);
 	end
-
-	-- if (monsterTarget ~= nil) then
-		-- send("cast " .. spellName .. " at " .. monsterTarget);
-	-- else
-		-- send("cast " .. spellName);
-	-- end
 end
 
 function processInvocation(spellName, targ)
@@ -6664,10 +6880,7 @@ echo("\nSetting to true for spell: " .. spellName);
 end
 
 -- queue data structure for spells
-
-function processSpellList(spellName) 
-
-end</script>
+</script>
 			<eventHandlerList />
 		</Script>
 		<ScriptGroup isActive="yes" isFolder="yes">
@@ -9070,16 +9283,27 @@ end
 function autoStand()
   if (isTfisting and isIdle() and not isAutoStandActive) then
     if (isFullHp and isFullSp and isFullEp) then
-  		echo("\nEmitting temptimer for 600 seconds to stand");
+			local seconds = 480;
+  		echo("\nEmitting temptimer for ".. tostring(seconds).." seconds to stand");
 			isAutoStandActive = true;
-    	tempTimer(600, function() isAutoStandActive = false;send("stand") end);
+    	tempTimer(480, function() isAutoStandActive = false;send("stand") end);
     end
   end
 end
 
-function goRandomDir(dir, n)
+dirsQueue = Queue.new();
+function goRandomDir(dir)
+	-- dirsQueue
+	local queueSize = Queue.size(dirsQueue) or 0;
 	local direction = dir or oppExit;
+		-- echo("\n**front: " .. tostring(Queue.front(dirsQueue)) .. " | back: " .. tostring(Queue.back(dirsQueue))
+	-- .. " | queueSize: " ..tostring(queueSize));
+	Queue.enqueueRight(dirsQueue, direction);
+	if (queueSize &gt; 2) then
+		echo(" | dequeing " .. Queue.dequeueLeft(dirsQueue));
+	end
 	expandAlias(direction);
+	Queue.display(dirsQueue);
 end</script>
 			<eventHandlerList />
 		</Script>
