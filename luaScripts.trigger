@@ -181,7 +181,9 @@ end</script>
 				<name>put rod</name>
 				<script>if (isRodding == true and rodCount &lt; 6) then
 	send("imbue armor", false)
-elseif (totalImbuesUsed == 31) then
+end
+
+if (totalImbuesUsed == 31) then
 	echo("\nImbues Complete for " .. totalImbuesUsed .. " items.")
 	isRodding = false;
 	send("wear token of the six worlds", false);
@@ -197,7 +199,7 @@ end</script>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
-					<string>^You put (.*) (.*) rod in the (.*)$</string>
+					<string>^You put (.*) rod in the (.*)$</string>
 					<string>^You put (.*) (.*) rod labeled (.*) in the (.*)$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
@@ -402,7 +404,7 @@ end</script>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>auto-prot from grace under fire</name>
-				<script>if (isEsongTrue == false) then
+				<script>if (isEsongTrue == false and isPartied == false) then
 	expandAlias("esong ")
 end</script>
 				<triggerType>0</triggerType>
@@ -480,6 +482,26 @@ setBoolForSpell(spell);</script>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
 					<string>You soundly state the folly of any who oppose you</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>0</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>morale_state_false</name>
+				<script>isMoraleActive = false;</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>You feel less motivated.</string>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>0</integer>
@@ -730,7 +752,7 @@ end</script>
 			</TriggerGroup>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>remedy team</name>
-				<script>member = string.gsub(matches[2], '%s+', ''):lower();
+				<script>member = grabLastSubstring(matches[2]):lower();
 send("use remedy at " .. member)</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
@@ -853,6 +875,69 @@ end</script>
 					<integer>1</integer>
 				</regexCodePropertyList>
 			</Trigger>
+			<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>party unwield</name>
+				<script>if (isWielded == true) then
+  send("remove all weapons");
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>(Party): party unwield</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>0</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>party stand up</name>
+				<script>send("stand;pf")</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>(Party): party stand</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>0</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>scout</name>
+				<script>test("scouting");
+send("use enhanced peer at " .. matches[3]:lower());</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>(Party): (.*) scout (\w+)</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
 		</TriggerGroup>
 		<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 			<name>movement</name>
@@ -876,6 +961,9 @@ end</script>
 end
 if (inCombat == true) then
 	inCombat = false
+end
+if (isPartied == true and isIdle()) then
+  tempTimer(7, function () checkToInnervate() end);
 end</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
@@ -1199,7 +1287,8 @@ end</script>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>DEAD, R.I.P.</name>
-				<script>if (inCombat == true) then 
+				<script>playSoundFile([[/System/library/sounds/Pop.aiff]])
+if (inCombat == true) then 
 	inCombat = false;
 end
 totalKills = totalKills + 1;
@@ -1603,14 +1692,18 @@ end
 echo(" *testmax: " .. tostring(checkHealthMaxes()));
 if (inRegen == true and (inCombat == false and isCasting == false)) then
 	if ((epPercent &gt;= 88 and hpPercent &lt;= 70) or hpPercent &lt;= 25) then
-		tempTimer(1, function () expandAlias("heal2") end);
-	end
+    if( spPercent &gt;= 70 ) then
+		  tempTimer(1, function () expandAlias("heal2") end);
+    else 
+      tempTimer(1, function () expandAlias("heal") end);
+    end
+  end
 end
 
 -- emergency hp levels
 if (inCombat) then
 	echo(" HP%:" .. hpPercent);
-	if (hpPercent &lt;= 42) then
+	if (hpPercent &lt;= 50) then
 		echo("\n ** WARNING: LOW HP ** ")
 		playSoundFile([[/System/library/sounds/Ping.aiff]])
 	end
@@ -1843,7 +1936,10 @@ send("bard emote strum " .. matches[2] .. " recites forwards, \"" .. firstToUppe
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>bard dues</name>
-				<script>send("epi");</script>
+				<script>send("epi");
+if (isBackstabbing == true) then
+  isBackstabbing = false;
+end;</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
@@ -2102,6 +2198,47 @@ end</script>
 					<integer>0</integer>
 				</regexCodePropertyList>
 			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>poison creations done</name>
+				<script>send("get all vial")</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>You can't see empty vial here.</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>0</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>laniard</name>
+				<script>test('laniard making');
+local count = 1</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>^You make a laniard for the (.*).$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
 		</TriggerGroup>
 		<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 			<name>merchant</name>
@@ -2199,7 +2336,7 @@ send("cast " .. spell);</script>
 					</regexCodePropertyList>
 				</Trigger>
 			</TriggerGroup>
-			<TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>repairs_</name>
 				<script>-- may need to check tailoring</script>
 				<triggerType>0</triggerType>
@@ -2647,7 +2784,7 @@ expandAlias("stb");</script>
 				</regexCodePropertyList>
 			</Trigger>
 			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-				<name>backstab_group</name>
+				<name>backstab_group (cycles and restab)</name>
 				<script></script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
@@ -2663,7 +2800,10 @@ expandAlias("stb");</script>
 				<regexCodePropertyList />
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>backstab (tfist)</name>
-					<script>if (monsterTarget == 'monster' or monsterTarget == 'nil') then
+					<script>if (isTfisting == false) then
+  isBackstabbing = false;
+end
+if (monsterTarget == 'monster' or monsterTarget == 'nil') then
 	monsterTarget = getLastSubstr(matches[2]:lower());
 end
 if (isPartied == false) then
@@ -2692,7 +2832,7 @@ end</script>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>assassin_double</name>
-					<script>test("assassin_double: " .. assassinDouble);
+					<script>test("assassin_double: " .. tostring(assassinDouble));
 
 if (assassinDouble == 'arterial slash') then
 	sinDouble('hamstring');
@@ -2700,9 +2840,7 @@ elseif (assassinDouble == 'hamstring') then
 	sinDouble('blind');
 elseif (assassinDouble == 'blind') then
 	sinDouble('arterial slash');
-end
-
--- TODO: create customized cycles of doubles</script>
+end</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -2722,7 +2860,7 @@ end
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>assassin_double_nerve_strike</name>
-					<script></script>
+					<script>send("assess " .. monsterTarget);</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -2835,6 +2973,27 @@ echo("\nResetting stab target: [ " .. tostring(monsterTarget).. " ] ");</script>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>trying to use an assassin skill with a lute?!</name>
+				<script>expandAlias("wep");
+expandAlias("stb");</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>You must be wielding a dagger, thin blade or broad blade.</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>2</integer>
 				</regexCodePropertyList>
 			</Trigger>
 		</TriggerGroup>
@@ -3308,7 +3467,9 @@ expandAlias("inn");</script>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>devout walks into a bar..</name>
-				<script>if (inCombat == false) then
+				<script>-- alert when devout walks in
+playSoundFile([[/System/library/sounds/Frog.aiff]])
+if (inCombat == false) then
 	expandAlias("bs")
 end</script>
 				<triggerType>0</triggerType>
@@ -3838,7 +3999,7 @@ if (devoutDir ~= nil) then
 	devoutDir = nil;
 end
 
-sinDouble(adef);
+sinDouble('arterial slash');
 
 tempTimer(4, function()
 	test("dead temptimer check");
@@ -4016,6 +4177,11 @@ if (randomDir == tostring(Queue.front(dirsQueue))) then -- try to reroll randomi
 	echo ("\nPOSSIBLE LOOP: " .. randomDir);
 	randomNum = math.random(table.getn(directions))
 	randomDir = directions[randomNum];
+  if (randomDir == tostring(Queue.front(dirsQueue))) then
+    -- reroll again
+    randomNum = math.random(table.getn(directions))
+	  randomDir = directions[randomNum];
+  end
 	echo("\nRerolled dir to: " .. randomDir);
 end
 echo("\nrandom dir: " .. randomDir .. " | oppExit: " .. oppExit .. " | curExit: " .. curExit .. 
@@ -4106,7 +4272,7 @@ end</script>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>post-dues emit to check</name>
-					<script>tempTimer(20, function()
+					<script>tempTimer(10, function()
 	if(not isMasrTrue and isIdle()) then
 		expandAlias("esong ");
 	elseif(isIdle()) then
@@ -4167,10 +4333,11 @@ end)</script>
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList />
 			<regexCodePropertyList />
-			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="yes" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>check to innervate</name>
-				<script>if (isPartied == true) then
-	tempTimer(2.2, function() checkToInnervate() end);
+				<script>test("check to innervate | isPartied: " .. tostring(isPartied));
+if (isPartied == true) then
+	tempTimer(2.4, function() checkToInnervate() end);
 end</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
@@ -4185,9 +4352,11 @@ end</script>
 				<regexCodeList>
 					<string>^(.*) DEAD, R.I.P.$</string>
 					<string>EQ Tick:</string>
+					<string>There is no target to fight here.</string>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>1</integer>
+					<integer>0</integer>
 					<integer>0</integer>
 				</regexCodePropertyList>
 			</Trigger>
@@ -4259,6 +4428,58 @@ end</script>
 					<integer>0</integer>
 				</regexCodePropertyList>
 			</Trigger>
+		</TriggerGroup>
+		<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>areas</name>
+			<script></script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList />
+			<regexCodePropertyList />
+			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>tiran's castle</name>
+				<script></script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList />
+				<regexCodePropertyList />
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>golem</name>
+					<script>expandAlias('stb');</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>The golem stomps on the landing, creating a massive shockwave!</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+			</TriggerGroup>
 		</TriggerGroup>
 	</TriggerPackage>
 	<TimerPackage />
@@ -4380,22 +4601,23 @@ send("drop eye")
 send("drop necklace")
 send("drop tricorn")
 send("drop shoulder guard")
--- send("drop epaulet")
+send("drop epaulet")
 send("drop dragonskin cloak")
-send("drop machine")
+send("drop nut")
 send("drop moonstone")
 send("drop armwrap")
 send("drop bracer")
+send("drop vengeance")
 send("drop wrap")
 send("drop razor bands")
 send("drop amulet of the eye")
 send("drop cincture")
 send("drop brooch")
 send("drop patch")
-send("drop nut")
+send("drop machine")
 send("drop winged band")
 send("drop doublet")
-send("drop vengeance")
+send("drop bracer")
 send("drop brassard")
 send("drop belt")
 send("drop all sheathe")
@@ -4454,7 +4676,7 @@ send("invoke " .. spell2);</script>
 		</AliasGroup>
 		<AliasGroup isActive="yes" isFolder="yes">
 			<name>weapons</name>
-			<script></script>
+			<script>-- setWeapons(wep1, wep2)</script>
 			<command></command>
 			<packageName></packageName>
 			<regex></regex>
@@ -4630,6 +4852,27 @@ send("wield " .. wep1);</script>
 				<packageName></packageName>
 				<regex>^g$</regex>
 			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>jan2</name>
+				<script>expandAlias("wep2 janbiya")</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^jan2$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>malice + venom</name>
+				<script>setWeapons("malice", "venom");</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^mv$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>venom + malice</name>
+				<script>setWeapons("venom", "malice");</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^vm$</regex>
+			</Alias>
 		</AliasGroup>
 		<AliasGroup isActive="yes" isFolder="yes">
 			<name>qatel_repairs</name>
@@ -4771,7 +5014,7 @@ end</script>
 			<Alias isActive="yes" isFolder="no">
 				<name>showparty</name>
 				<script>if (AmIPartying()) then
-	displaySpellsList(spellList);
+	displayPartyObject(partyObj);
 end
 </script>
 				<command></command>
@@ -5016,10 +5259,9 @@ end</script>
 			<Alias isActive="yes" isFolder="no">
 				<name>backstab_target</name>
 				<script>-- test('?!?!?!@#');
--- monsterTarget = matches[2]
--- isBackstabbing = true;
--- skill = "backstab at " .. monsterTarget;
--- send("use backstab at " .. monsterTarget)</script>
+monsterTarget = matches[2]
+skill = "backstab at " .. monsterTarget;
+send("use backstab at " .. monsterTarget)</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^bs (.*)$</regex>
@@ -5097,7 +5339,7 @@ if (term == 'n') then
 elseif (term == 'a') then
 	adef = 'arterial slash';
 elseif (term == 'b') then
-	adef = 'arterial slash';
+	adef = 'blind';
 else
 	adef = 'hamstring';
 end
@@ -5105,7 +5347,76 @@ end
 sinDouble(adef);</script>
 				<command></command>
 				<packageName></packageName>
-				<regex>^adef (.*)$</regex>
+				<regex>^ad (.*)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>apply poison</name>
+				<script>send("use apply poison at " .. wep1 .. " with poison")</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^ap$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>apply poison wep2</name>
+				<script>send("use apply poison at " .. wep2 .. " with poison")</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^ap2$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>od</name>
+				<script>send("open door;open door 2")</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^od$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>lan</name>
+				<script>target = matches[2];
+if (target == '') then 
+  send("use laniard making at weapon");
+else
+  send("use laniard making at " .. matches[2])
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^lan (.*)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>enhanced peer(alias)</name>
+				<script>local room = matches[2];
+send("use enhanced peer at " .. room);</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^ep (.*)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>al</name>
+				<script>send("assassin list " .. matches[2]);</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^al (.*)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>cwd (close west door)</name>
+				<script>  send("close west door", false);</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^cwd$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>ced (close east door)</name>
+				<script>  send("close east door", false);</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^ced$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>target (reset)</name>
+				<script>monsterTarget = 'monster';</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^targ$</regex>
 			</Alias>
 		</AliasGroup>
 		<AliasGroup isActive="yes" isFolder="yes">
@@ -5179,7 +5490,7 @@ send("sell all " .. item)</script>
 repairCount = 1;
 -- check tailoring as default
 -- send("use tailoring at " .. repairTarget);
-useSkill("altering", repairTarget);</script>
+useSkill("tailoring", repairTarget);</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^arep (.*)$</regex>
@@ -5237,6 +5548,14 @@ end</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^sh$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>payment</name>
+				<script>  local str = matches[2];
+  send("use payment at " .. str);</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^pay (.*)$</regex>
 			</Alias>
 		</AliasGroup>
 		<AliasGroup isActive="yes" isFolder="yes">
@@ -5318,6 +5637,7 @@ end</script>
 				<name>practice</name>
 				<script>inRegen = true;
 expandAlias("wl")
+skill = 'practice';
 send("use practice");</script>
 				<command></command>
 				<packageName></packageName>
@@ -5418,6 +5738,24 @@ processSpellDamage('engaging banter', monsterTarget);</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^bt$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>heroism(alias)</name>
+				<script>target = matches[2];
+if(isWieldingLute == false) then
+  expandAlias("wl")
+end
+processSpellSupport("heroism", target);</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^hr (.*)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>esong(self)</name>
+				<script>processSpellSupport("emotion song", "me");</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^esong$</regex>
 			</Alias>
 		</AliasGroup>
 		<AliasGroup isActive="yes" isFolder="yes">
@@ -5672,6 +6010,33 @@ send("down");</script>
 					<packageName></packageName>
 					<regex>^down$</regex>
 				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>in</name>
+					<script>oppExit = 'out';
+curExit = 'in';
+send("in");</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^in$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>out</name>
+					<script>oppExit = 'enter';
+curExit = 'out';
+send("out");</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^out$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>enter</name>
+					<script>oppExit = 'out';
+curExit = 'enter';
+send("enter");</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^enter$</regex>
+				</Alias>
 			</AliasGroup>
 			<Alias isActive="yes" isFolder="no">
 				<name>send literal</name>
@@ -5715,6 +6080,28 @@ send("down");</script>
 					<regex>showspell</regex>
 				</Alias>
 			</AliasGroup>
+			<Alias isActive="yes" isFolder="no">
+				<name>am i idle?</name>
+				<script>echo("\n &gt; Am I Idle? " .. tostring(isIdle()));</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^amiidle$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>spawn spirits</name>
+				<script>send("upstairs;ne;nw;se;sw;downstairs;trueform");</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^spawnspirs$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>dues</name>
+				<script>-- send("dues");
+send("use epitaph at corpse");</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^dues$</regex>
+			</Alias>
 		</AliasGroup>
 		<AliasGroup isActive="yes" isFolder="yes">
 			<name>speedwalks</name>
@@ -5758,6 +6145,13 @@ send("up;lock door;out;n;n;depart;run s;run w;map")
 				<command></command>
 				<packageName></packageName>
 				<regex>^tfish$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name></name>
+				<script></script>
+				<command></command>
+				<packageName></packageName>
+				<regex></regex>
 			</Alias>
 		</AliasGroup>
 		<AliasGroup isActive="yes" isFolder="yes">
@@ -6284,291 +6678,6 @@ end
 				<eventHandlerList />
 			</Script>
 		</ScriptGroup>
-		<Script isActive="yes" isFolder="no">
-			<name>combatVariables</name>
-			<packageName></packageName>
-			<script>-------------------------------------------------
---         Put your Lua functions here.        --
---                                             --
--- Note that you can also use external scripts --
--------------------------------------------------
-inCombat = false;
-monsterTarget = '';
-target = '';
-wep1 = 'qatel';
-wep2 = 'janbiya';
-defense = '';
-adefault = 'arterial slash';</script>
-			<eventHandlerList />
-		</Script>
-		<Script isActive="yes" isFolder="no">
-			<name>generalVar</name>
-			<packageName></packageName>
-			<script>-------------------------------------------------
---         Put your Lua functions here.        --
---                                             --
--- Note that you can also use external scripts --
--------------------------------------------------
-operand1 = 0
-operand2 = 0
-operator = ''
-result = 0
-skill = '';
--- spell = '';
-spell2 = '';
-spellList = Queue.new();
-item = '';
-mwCount = 1;
-totalKills = 0;
-combatState = 0; -- -1 = slowed; 0 = normalized; 1 = hasted
-match = '';
-oppExit = '';
-curExit = '';
-paces = 0;
-devoutDir = '';
-assassinDouble = 'arterial slash';
-monsterTarget = '';
-hpThreshold = 15;
-spTheshold = 15;
-epThreshold = 20;
-
--- campfire
-isCampfireActive = false;
-
- -- rod vars
-rodBox = 2;
-rodCount = 0;
-totalImbuesUsed = 0;
-
- -- booleans
-isRodding = false;
-isCasting = false;
-chainCasting = false;
-inRegen = false;
-isMoraleActive = false;
-isMaprTrue = false;
-isEsongTrue = false;
-isFaTrue = false;
-isWielded = false;
-isWieldingLute = false;
-isFullHp = false;
-isFullSp = false;
-isFullEp = false;
-isBlinded = false;
-isTfisting = false;
-isBackstabbing = false;
-isInviz = false;
-isLootedRoom = false; 
-isDisruptionFieldActive = false;
-isShelterUp = false;
-isCrated = false;
--- bank
-prevBalance = nil;
-currBalance = nil;
-transactionChanges = 0;
-</script>
-			<eventHandlerList />
-		</Script>
-		<Script isActive="yes" isFolder="no">
-			<name>partyVars</name>
-			<packageName></packageName>
-			<script>-------------------------------------------------
---         Put your Lua functions here.        --
---                                             --
--- Note that you can also use external scripts --
--------------------------------------------------
-isPartied = false;
-isLoadingPartyInfo = false;
-borderCount = 0;
-partyObj = {};
-partyIter = 1;
-partySize = 0;
-
-function AmIPartying() 
-	if(isPartied == true) then
-		echo("\nI'm partying!  Where's the booze?")
-		return true;
-	else
-		echo("\nI might not be partying, but I COULD be partying.")
-		return false
-	end
-end</script>
-			<eventHandlerList />
-		</Script>
-		<Script isActive="yes" isFolder="no">
-			<name>buffs</name>
-			<packageName></packageName>
-			<script>-------------------------------------------------
---         Put your Lua functions here.        --
---                                             --
--- Note that you can also use external scripts --
--------------------------------------------------
-esongStatus = false;</script>
-			<eventHandlerList />
-		</Script>
-		<Script isActive="yes" isFolder="no">
-			<name>qatelVars</name>
-			<packageName></packageName>
-			<script>-------------------------------------------------
---         Put your Lua functions here.        --
---                                             --
--- Note that you can also use external scripts --
--------------------------------------------------
-targetPercent = 0;
-stability = 0;
-isCappedShopKeep = false;</script>
-			<eventHandlerList />
-		</Script>
-		<Script isActive="yes" isFolder="no">
-			<name>partyScripts</name>
-			<packageName></packageName>
-			<script>-------------------------------------------------
---         Put your Lua functions here.        --
---                                             --
--- Note that you can also use external scripts --
--------------------------------------------------
-
-function has_value (tab, val)
-    for index, value in ipairs(tab) do
-        if value == val then
-            return true
-        end
-    end
-
-    return false
-end
-
-function clearPartyObject (tab)
-	for key in pairs (tab) do
-		tab[key] = nil
-	end
-end
-
-function displayPartyObject (tab)
-	echo("\n    Listing Party Members(" .. tostring(table.getn(partyObj)) .. "):\n----------------------------------" )
-	for key in pairs (tab) do
-		echo("\n  Name: " .. firstToUpper(tab[key]) .. "\n    -&gt; Position: " .. key);
-	end
-	echo("\n----------------------------------") 
-end
-
-function toggleCombatOff ()
-  if (inCombat == true) then
-  	inCombat = false;
-	end
-end
-
-function chainCastParty (spellName)
-  if (partyIter &lt; partySize and chainCasting == true) then
-  	partyIter = partyIter + 1;
-  	echo("\nesong test " .. partyIter)
-  	send("cast " .. spellName .. " at " .. tostring(partyObj[partyIter]))
-  end
-end
-
-function loadParty ()
-  isLoadingPartyInfo = true;
-  isPartied = true;
-  clearPartyObject(partyObj);
-  send("pssa")
-end</script>
-			<eventHandlerList />
-		</Script>
-		<Script isActive="yes" isFolder="no">
-			<name>qatelDtypeCheck</name>
-			<packageName></packageName>
-			<script>-------------------------------------------------
---         Put your Lua functions here.        --
---                                             --
--- Note that you can also use external scripts --
--------------------------------------------------
-function identifyDtype ()
-	echo("\nidentifyDtype function firing\n");
-	send("unalias \\qatel;unalias \\dagger");
-	local p = tonumber(stability);
-	echo("p is: " .. p)
-	if (p == 100 or p == 86) then
-  	send("get qatel")
-		send("label remove qatel")
-  	send("label qatel as D")
-	elseif (p == 99 or p == 85) then
-	  send("get qatel")
-		send("label remove qatel")
-  	send("label qatel as PH")
-	elseif (p == 98 or p == 84) then
-	  send("get qatel")
-		send("label remove qatel")
-  	send("label qatel as S")
-	elseif (p == 97 or p == 83) then
-	  send("get qatel")
-		send("label remove qatel")
-  	send("label qatel as U")
-	elseif (p == 96 or p == 82) then
-	  send("get qatel")
-		send("label remove qatel")
-  	send("label qatel as H")
-	elseif (p == 95 or p == 81) then
-	  send("get qatel")
-		send("label remove qatel")
-  	send("label qatel as H")
-	elseif (p == 94 or p == 80) then
-	  send("get qatel")
-		send("label remove qatel")
-  	send("label qatel as PO")
-	elseif (p == 93 or p == 79) then
-	  send("get qatel")
-		send("label remove qatel")
-  	send("label qatel as I")
-	elseif (p == 92 or p == 78) then
-	  send("get qatel")
-		send("label remove qatel")
-  	send("label qatel as A")
-	elseif (p == 91 or p == 77) then
-	  send("get qatel")
-		send("label remove qatel")
-  	send("label qatel as X")
-	elseif (p == 90 or p == 76) then
-	  send("get qatel")
-		send("label remove qatel")
-  	send("label qatel as P")
-	elseif (p == 89 or p == 75) then
-	  send("get qatel")
-		send("label remove qatel")
-  	send("label qatel as E")
-	elseif (p == 88 or p == 74) then
-	  send("get qatel")
-		send("label remove qatel")
-  	send("label qatel as C")
-	elseif (p == 87 or p == 73) then
-	  send("get qatel")
-		send("label remove qatel")
-  	send("label qatel as F")
-	end
-end</script>
-			<eventHandlerList />
-		</Script>
-		<Script isActive="yes" isFolder="no">
-			<name>skillScript</name>
-			<packageName></packageName>
-			<script>-------------------------------------------------
---         Put your Lua functions here.        --
---                                             --
--- Note that you can also use external scripts --
--------------------------------------------------
-
-
-function useSkill(skil, targ) 
-	target = targ or '';
-  if (target == '') then
-  	skill = skil
-  	send('use ' .. skill)
-  else
-  	skill = skil .. " at " .. targ;
-  	send("use " .. skill)
-  end
-end</script>
-			<eventHandlerList />
-		</Script>
 		<ScriptGroup isActive="yes" isFolder="yes">
 			<name>generalLuaScripts</name>
 			<packageName></packageName>
@@ -6661,9 +6770,6 @@ end</script>
 --                                             --
 -- Note that you can also use external scripts --
 -------------------------------------------------
-hpPercent = 0;
-spPercent = 0;
-epPercent = 0;
 
 function toPercent(num1, num2)
 	if (num1 == num2) then
@@ -6818,71 +6924,6 @@ end</script>
 				</Script>
 			</ScriptGroup>
 		</ScriptGroup>
-		<Script isActive="yes" isFolder="no">
-			<name>processSpellScripts</name>
-			<packageName></packageName>
-			<script>-------------------------------------------------
---         Put your Lua functions here.        --
---                                             --
--- Note that you can also use external scripts --
--------------------------------------------------
--- consider refactoring to differentiate dmg/support in one single function 
--- by adding an additional parameter
-
-spell = '';
-
-function processSpellSupport(spellName, targ)
-	echo("\nProcessing Support Spell: " .. spellName .. " | Target: [ " .. tostring(targ) .. " ]");
-	spell = spellName;
-	target = targ;
-	expandAlias('wl');
-	if (target ~= nil) then
-		send("cast " .. spellName .. " at " .. target);
-	else
-		send("cast " .. spellName);
-	end
-end
-
-
-function processSpellDamage(spellName, targ)
-	echo("\nProcessing Damage Spell: " .. spellName .. " | Target: [ " .. tostring(targ) .. " ]");
-	spell = spellName;
-	expandAlias('wl');
-	if (targ == nil) then
-		send("cast " .. spellName);
-	elseif (monsterTarget ~= nil and monsterTarget ~= '') then
-		monsterTarget = targ;
-		send("cast " .. spellName .. " at " .. monsterTarget);
-	elseif (monsterTarget == '') then
-		monsterTarget = 'monster'
-		send("cast " .. spellName .. " at " .. monsterTarget);
-	end
-end
-
-function processInvocation(spellName, targ)
-	echo("\nProcessing Invocation: " .. spellName .. " | Target: [ " .. tostring(targ) .. " ]");
-	spell2 = spellName;
-	monsterTarget = targ;
-	if (target ~= nil) then
-		send("cast " .. spellName .. " at " .. monsterTarget);
-	else
-		send("cast " .. spellName);
-	end
-end
-
-function setBoolForSpell(spellName)
-echo("\nSetting to true for spell: " .. spellName);
-	if (spellName == 'mystic warrior') then
-		isMaprTrue = true;
-	elseif (spellName == 'major sonic resistance') then
-		isMasrTrue = true;
-	end
-end
-
--- queue data structure for spells
-</script>
-			<eventHandlerList />
-		</Script>
 		<ScriptGroup isActive="yes" isFolder="yes">
 			<name>generic_mapper</name>
 			<packageName>generic_mapper</packageName>
@@ -9217,191 +9258,175 @@ registerAnonymousEventHandler("onPrompt", "map.eventHandler")
 				<eventHandlerList />
 			</Script>
 		</ScriptGroup>
-		<Script isActive="yes" isFolder="no">
-			<name>backstab</name>
+		<ScriptGroup isActive="yes" isFolder="yes">
+			<name>scripts</name>
 			<packageName></packageName>
 			<script>-------------------------------------------------
 --         Put your Lua functions here.        --
 --                                             --
 -- Note that you can also use external scripts --
 -------------------------------------------------
-
-function backstab(exit)
-	expandAlias("inv")
-	expandAlias(exit);
-	tempTimer(2.2, function () 
-		-- if (isBackstabbing == true) then
-		-- isBackstabbing = false;
-		-- end
-		checkSafety();
-		end)
-end
-
-function checkSafety ()
-		if (hpPercent &gt; 35) then
-			expandAlias(oppExit);
-			expandAlias("bs");
-		else
-			echo("\n *** WARNING: Health Low *** \n ")
-			-- issue shelter or naturally regen
-			-- TODO: create room objects to detect monsters in room
-			send("enter crate");
-			isBackstabbing = false;
-		end
-end
-
-function sinDouble(skill)
-	assassinDouble = skill;
-	send("assassin double " .. assassinDouble);
-end</script>
+</script>
 			<eventHandlerList />
-		</Script>
-		<Script isActive="yes" isFolder="no">
-			<name>tfistScripts</name>
-			<packageName></packageName>
-			<script>-------------------------------------------------
+			<Script isActive="yes" isFolder="no">
+				<name>combatVariables</name>
+				<packageName></packageName>
+				<script>-------------------------------------------------
 --         Put your Lua functions here.        --
 --                                             --
 -- Note that you can also use external scripts --
 -------------------------------------------------
-
-isAutoStandActive = false;
-
-function checkForRegen()
-test("checkForRegen(): " .. epPercent)
-	if (epPercent &lt;= 30) then
-		processSpellSupport("shelter");
-	end
-end
-
-function checkToMasr()
-	if (isMasrTrue == false) then
-		echo("\ninsert masr code here")
-	end
-end
-
-function autoStand()
-  if (isTfisting and isIdle() and not isAutoStandActive) then
-    if (isFullHp and isFullSp and isFullEp) then
-			local seconds = 480;
-  		echo("\nEmitting temptimer for ".. tostring(seconds).." seconds to stand");
-			isAutoStandActive = true;
-    	tempTimer(480, function() isAutoStandActive = false;send("stand") end);
-    end
-  end
-end
-
-dirsQueue = Queue.new();
-function goRandomDir(dir)
-	-- dirsQueue
-	local queueSize = Queue.size(dirsQueue) or 0;
-	local direction = dir or oppExit;
-		-- echo("\n**front: " .. tostring(Queue.front(dirsQueue)) .. " | back: " .. tostring(Queue.back(dirsQueue))
-	-- .. " | queueSize: " ..tostring(queueSize));
-	Queue.enqueueRight(dirsQueue, direction);
-	if (queueSize &gt; 2) then
-		echo(" | dequeing " .. Queue.dequeueLeft(dirsQueue));
-	end
-	expandAlias(direction);
-	Queue.display(dirsQueue);
-end</script>
-			<eventHandlerList />
-		</Script>
-		<Script isActive="yes" isFolder="no">
-			<name>testfxn</name>
-			<packageName></packageName>
-			<script>-------------------------------------------------
+inCombat = false;
+monsterTarget = '';
+target = '';
+wep1 = 'qatel';
+wep2 = 'janbiya';
+defense = '';
+adefault = 'arterial slash';</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>generalVar</name>
+				<packageName></packageName>
+				<script>-------------------------------------------------
 --         Put your Lua functions here.        --
 --                                             --
 -- Note that you can also use external scripts --
 -------------------------------------------------
-function test(fxn)
- 	local func = fxn or nil;
-	if (func ~= nil) then
-		echo("\nTesting function: [" .. func .. "]");
+operand1 = 0
+operand2 = 0
+operator = ''
+result = 0
+skill = '';
+-- spell = '';
+spell2 = '';
+spellList = Queue.new();
+item = '';
+mwCount = 1;
+totalKills = 0;
+combatState = 0; -- -1 = slowed; 0 = normalized; 1 = hasted
+match = '';
+oppExit = '';
+curExit = '';
+paces = 0;
+devoutDir = '';
+assassinDouble = 'arterial slash';
+monsterTarget = '';
+hpThreshold = 15;
+spTheshold = 15;
+epThreshold = 20;
+hpPercent = 0;
+spPercent = 0;
+epPercent = 0;
+
+-- campfire
+isCampfireActive = false;
+
+ -- rod vars
+rodBox = 2;
+rodCount = 0;
+totalImbuesUsed = 0;
+
+ -- booleans
+isRodding = false;
+isCasting = false;
+chainCasting = false;
+inRegen = false;
+isMoraleActive = false;
+isMaprTrue = false;
+isEsongTrue = false;
+isFaTrue = false;
+isWielded = false;
+isWieldingLute = false;
+isFullHp = false;
+isFullSp = false;
+isFullEp = false;
+isBlinded = false;
+isTfisting = false;
+isBackstabbing = false;
+isInviz = false;
+isLootedRoom = false; 
+isDisruptionFieldActive = false;
+isShelterUp = false;
+isCrated = false;
+-- bank
+prevBalance = nil;
+currBalance = nil;
+transactionChanges = 0;
+</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>partyVars</name>
+				<packageName></packageName>
+				<script>-------------------------------------------------
+--         Put your Lua functions here.        --
+--                                             --
+-- Note that you can also use external scripts --
+-------------------------------------------------
+isPartied = false;
+isLoadingPartyInfo = false;
+borderCount = 0;
+partyObj = {};
+partyIter = 1;
+partySize = 0;
+
+function AmIPartying() 
+	if(isPartied == true) then
+		echo("\nI'm partying!  Where's the booze?")
+		return true;
 	else
-		echo("\nTest output!");
+		echo("\nI might not be partying, but I COULD be partying.")
+		return false
 	end
 end</script>
-			<eventHandlerList />
-		</Script>
-		<Script isActive="yes" isFolder="no">
-			<name>autoregenScripts</name>
-			<packageName></packageName>
-			<script>-------------------------------------------------
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>buffs</name>
+				<packageName></packageName>
+				<script>-------------------------------------------------
+--         Put your Lua functions here.        --
+--                                             --
+-- Note that you can also use external scripts --
+-------------------------------------------------
+esongStatus = false;</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>qatelVars</name>
+				<packageName></packageName>
+				<script>-------------------------------------------------
+--         Put your Lua functions here.        --
+--                                             --
+-- Note that you can also use external scripts --
+-------------------------------------------------
+targetPercent = 0;
+stability = 0;
+isCappedShopKeep = false;</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>weaponScripts</name>
+				<packageName></packageName>
+				<script>-------------------------------------------------
 --         Put your Lua functions here.        --
 --                                             --
 -- Note that you can also use external scripts --
 -------------------------------------------------
 
-function checkToInnervate() 
-	if (inCombat == false and isIdle() and epPercent &lt; 90) then
-		expandAlias("inn");
-	end
+function setOffhand(wep) 
+  send("remove " .. wep2);
+  wep2 = wep;
+  send("wield " .. wep2);
 	return;
 end</script>
-			<eventHandlerList />
-		</Script>
-		<Script isActive="yes" isFolder="no">
-			<name>merchantScripts</name>
-			<packageName></packageName>
-			<script>-------------------------------------------------
---         Put your Lua functions here.        --
---                                             --
--- Note that you can also use external scripts --
--------------------------------------------------
-
-function processRepair(skillName, target)
-	if (skillName == nil and target == nil) then
-		send("use " .. repairSkill .. " at " .. repairTarget .. " " .. repairCount);
-	elseif (skillName ~= nil) then
-		repairSkill = skillName;
-		send("use " .. repairSkill .. " at " .. repairTarget .. " " .. repairCount);
-	elseif (skillName ~=nil and target ~=nil) then
-		repairSkill = skillName;
-		repairTarget = target;
-		send("use " .. repairSkill .. " at " .. repairTarget .. " " .. repairCount);
-	end
-end
-
-function processResize(skillName, target, size)
-	if(skillName == nil and target == nil and size == nil) then
-		send("use " .. resizeSkill .. " at " .. repairTarget .. " " .. repairCount .. " to " .. armorSize);
-	elseif (skillName ~= nil and target ~= nil and size ~= nil) then
-		resizeSkill = skillName;
-		repairTarget = target;
-		armorSize = size;
-		send("use " .. resizeSkill .. " at " .. repairTarget .. " " .. repairCount .. " to " .. armorSize);
-	elseif(skillName ~=nil and target == nil and size == nil) then
-		resizeSkill = skillName
-		send("use " .. resizeSkill .. " at " .. repairTarget .. " " .. repairCount .. " to " .. armorSize);
-	end
-end
-		</script>
-			<eventHandlerList />
-		</Script>
-		<Script isActive="yes" isFolder="no">
-			<name>armorCountVar</name>
-			<packageName></packageName>
-			<script>-------------------------------------------------
---         Put your Lua functions here.        --
---                                             --
--- Note that you can also use external scripts --
--------------------------------------------------
-armorCount = 0;
-armorSize = nil;
-resizeSkill = 'altering';
-repairCount = 1;
-repairTarget = '';
-repairSkill = 'tailoring';
-featherWeightOn = false;
-featherWeightTarget = ''</script>
-			<eventHandlerList />
-		</Script>
-		<Script isActive="yes" isFolder="no">
-			<name>miscScripts</name>
-			<packageName></packageName>
-			<script>-------------------------------------------------
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>miscScripts</name>
+				<packageName></packageName>
+				<script>-------------------------------------------------
 --         Put your Lua functions here.        --
 --                                             --
 -- Note that you can also use external scripts --
@@ -9409,7 +9434,7 @@ featherWeightTarget = ''</script>
 
 function isIdle() 
  local bool = false;
-	if (inCombat == false and isCasting == false and isBackstabbing == false) then
+	if (inCombat == false and isCasting == false) then
 		bool = true;
 	end
 	return bool;
@@ -9456,25 +9481,405 @@ function checkCombatState()
 	end
 end
 </script>
-			<eventHandlerList />
-		</Script>
-		<Script isActive="yes" isFolder="no">
-			<name>weaponScripts</name>
-			<packageName></packageName>
-			<script>-------------------------------------------------
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>armorCountVar</name>
+				<packageName></packageName>
+				<script>-------------------------------------------------
+--         Put your Lua functions here.        --
+--                                             --
+-- Note that you can also use external scripts --
+-------------------------------------------------
+armorCount = 0;
+armorSize = nil;
+resizeSkill = 'altering';
+repairCount = 1;
+repairTarget = '';
+repairSkill = 'tailoring';
+featherWeightOn = false;
+featherWeightTarget = ''</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>merchantScripts</name>
+				<packageName></packageName>
+				<script>-------------------------------------------------
 --         Put your Lua functions here.        --
 --                                             --
 -- Note that you can also use external scripts --
 -------------------------------------------------
 
-function setOffhand(wep) 
-  send("remove " .. wep2);
-  wep2 = wep;
-  send("wield " .. wep2);
+function processRepair(skillName, target)
+	if (skillName == nil and target == nil) then
+		send("use " .. repairSkill .. " at " .. repairTarget .. " " .. repairCount);
+	elseif (skillName ~= nil) then
+		repairSkill = skillName;
+		send("use " .. repairSkill .. " at " .. repairTarget .. " " .. repairCount);
+	elseif (skillName ~=nil and target ~=nil) then
+		repairSkill = skillName;
+		repairTarget = target;
+		send("use " .. repairSkill .. " at " .. repairTarget .. " " .. repairCount);
+	end
+end
+
+function processResize(skillName, target, size)
+	if(skillName == nil and target == nil and size == nil) then
+		send("use " .. resizeSkill .. " at " .. repairTarget .. " " .. repairCount .. " to " .. armorSize);
+	elseif (skillName ~= nil and target ~= nil and size ~= nil) then
+		resizeSkill = skillName;
+		repairTarget = target;
+		armorSize = size;
+		send("use " .. resizeSkill .. " at " .. repairTarget .. " " .. repairCount .. " to " .. armorSize);
+	elseif(skillName ~=nil and target == nil and size == nil) then
+		resizeSkill = skillName
+		send("use " .. resizeSkill .. " at " .. repairTarget .. " " .. repairCount .. " to " .. armorSize);
+	end
+end
+		</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>autoregenScripts</name>
+				<packageName></packageName>
+				<script>-------------------------------------------------
+--         Put your Lua functions here.        --
+--                                             --
+-- Note that you can also use external scripts --
+-------------------------------------------------
+
+function checkToInnervate() 
+	if (isIdle() and epPercent &lt; 90) then
+		expandAlias("inn");
+	end
 	return;
 end</script>
-			<eventHandlerList />
-		</Script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>testfxn</name>
+				<packageName></packageName>
+				<script>-------------------------------------------------
+--         Put your Lua functions here.        --
+--                                             --
+-- Note that you can also use external scripts --
+-------------------------------------------------
+function test(fxn)
+ 	local func = fxn or nil;
+	if (func ~= nil) then
+		echo("\nTesting function: [" .. func .. "]");
+	else
+		echo("\nTest output!");
+	end
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>tfistScripts</name>
+				<packageName></packageName>
+				<script>-------------------------------------------------
+--         Put your Lua functions here.        --
+--                                             --
+-- Note that you can also use external scripts --
+-------------------------------------------------
+
+isAutoStandActive = false;
+
+function checkForRegen()
+test("checkForRegen(): " .. epPercent)
+	if (epPercent &lt;= 30) then
+		processSpellSupport("shelter");
+	end
+end
+
+function checkToMasr()
+	if (isMasrTrue == false) then
+		echo("\ninsert masr code here")
+	end
+end
+
+function autoStand()
+  if (isTfisting and isIdle() and not isAutoStandActive) then
+    if (isFullHp and isFullSp and isFullEp) then
+			local seconds = 480;
+  		echo("\nEmitting temptimer for ".. tostring(seconds).." seconds to stand");
+			isAutoStandActive = true;
+    	tempTimer(480, function() isAutoStandActive = false;send("stand") end);
+    end
+  end
+end
+
+dirsQueue = Queue.new();
+function goRandomDir(dir)
+	-- dirsQueue
+	local queueSize = Queue.size(dirsQueue) or 0;
+	local direction = dir or oppExit;
+		-- echo("\n**front: " .. tostring(Queue.front(dirsQueue)) .. " | back: " .. tostring(Queue.back(dirsQueue))
+	-- .. " | queueSize: " ..tostring(queueSize));
+	Queue.enqueueRight(dirsQueue, direction);
+	if (queueSize &gt; 3) then
+		echo(" | dequeing " .. Queue.dequeueLeft(dirsQueue));
+	end
+	expandAlias(direction);
+	Queue.display(dirsQueue);
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>backstab</name>
+				<packageName></packageName>
+				<script>-------------------------------------------------
+--         Put your Lua functions here.        --
+--                                             --
+-- Note that you can also use external scripts --
+-------------------------------------------------
+
+function backstab(exit)
+	expandAlias("inv")
+	expandAlias(exit);
+	tempTimer(2.2, function () 
+		-- if (isBackstabbing == true) then
+		-- isBackstabbing = false;
+		-- end
+		checkSafety();
+		end)
+end
+
+function checkSafety ()
+		if (hpPercent &gt; 42) then
+			expandAlias(oppExit);
+			expandAlias("bs");
+		else
+			echo("\n *** WARNING: Health Low *** \n ")
+			-- issue shelter or naturally regen
+			-- TODO: create room objects to detect monsters in room
+			send("enter crate");
+			isBackstabbing = false;
+		end
+end
+
+function sinDouble(skill)
+	assassinDouble = skill;
+	send("assassin double " .. assassinDouble);
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>processSpellScripts</name>
+				<packageName></packageName>
+				<script>-------------------------------------------------
+--         Put your Lua functions here.        --
+--                                             --
+-- Note that you can also use external scripts --
+-------------------------------------------------
+-- consider refactoring to differentiate dmg/support in one single function 
+-- by adding an additional parameter
+
+spell = '';
+
+function processSpellSupport(spellName, targ)
+	echo("\nProcessing Support Spell: " .. spellName .. " | Target: [ " .. tostring(targ) .. " ]");
+	spell = spellName;
+	target = targ;
+	expandAlias('wl');
+	if (target ~= nil) then
+		send("cast " .. spellName .. " at " .. target);
+	else
+		send("cast " .. spellName);
+	end
+end
+
+
+function processSpellDamage(spellName, targ)
+	echo("\nProcessing Damage Spell: " .. spellName .. " | Target: [ " .. tostring(targ) .. " ]");
+	spell = spellName;
+	expandAlias('wl');
+	if (targ == nil) then
+		send("cast " .. spellName);
+	elseif (monsterTarget ~= nil and monsterTarget ~= '') then
+		monsterTarget = targ;
+		send("cast " .. spellName .. " at " .. monsterTarget);
+	elseif (monsterTarget == '') then
+		monsterTarget = 'monster'
+		send("cast " .. spellName .. " at " .. monsterTarget);
+	end
+end
+
+function processInvocation(spellName, targ)
+	echo("\nProcessing Invocation: " .. spellName .. " | Target: [ " .. tostring(targ) .. " ]");
+	spell2 = spellName;
+	monsterTarget = targ;
+	if (target ~= nil) then
+		send("cast " .. spellName .. " at " .. monsterTarget);
+	else
+		send("cast " .. spellName);
+	end
+end
+
+function setBoolForSpell(spellName)
+echo("\nSetting to true for spell: " .. spellName);
+	if (spellName == 'mystic warrior') then
+		isMaprTrue = true;
+	elseif (spellName == 'major sonic resistance') then
+		isMasrTrue = true;
+	end
+end
+
+-- queue data structure for spells
+</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>skillScript</name>
+				<packageName></packageName>
+				<script>-------------------------------------------------
+--         Put your Lua functions here.        --
+--                                             --
+-- Note that you can also use external scripts --
+-------------------------------------------------
+
+
+function useSkill(skil, targ) 
+	target = targ or '';
+  if (target == '') then
+  	skill = skil
+  	send('use ' .. skill)
+  else
+  	skill = skil .. " at " .. targ;
+  	send("use " .. skill)
+  end
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>qatelDtypeCheck</name>
+				<packageName></packageName>
+				<script>-------------------------------------------------
+--         Put your Lua functions here.        --
+--                                             --
+-- Note that you can also use external scripts --
+-------------------------------------------------
+function identifyDtype ()
+	echo("\nidentifyDtype function firing\n");
+	send("unalias \\qatel;unalias \\dagger");
+	local p = tonumber(stability);
+	cecho("&lt;magenta&gt;Qatel %: " .. p)
+	if (p == 100 or p == 86) then
+  	send("get qatel")
+		send("label remove qatel")
+  	send("label qatel as D")
+	elseif (p == 99 or p == 85) then
+	  send("get qatel")
+		send("label remove qatel")
+  	send("label qatel as PH")
+	elseif (p == 98 or p == 84) then
+	  send("get qatel")
+		send("label remove qatel")
+  	send("label qatel as S")
+	elseif (p == 97 or p == 83) then
+	  send("get qatel")
+		send("label remove qatel")
+  	send("label qatel as U")
+	elseif (p == 96 or p == 82) then
+	  send("get qatel")
+		send("label remove qatel")
+  	send("label qatel as H")
+	elseif (p == 95 or p == 81) then
+	  send("get qatel")
+		send("label remove qatel")
+  	send("label qatel as H")
+	elseif (p == 94 or p == 80) then
+	  send("get qatel")
+		send("label remove qatel")
+  	send("label qatel as PO")
+	elseif (p == 93 or p == 79) then
+	  send("get qatel")
+		send("label remove qatel")
+  	send("label qatel as I")
+	elseif (p == 92 or p == 78) then
+	  send("get qatel")
+		send("label remove qatel")
+  	send("label qatel as A")
+	elseif (p == 91 or p == 77) then
+	  send("get qatel")
+		send("label remove qatel")
+  	send("label qatel as X")
+	elseif (p == 90 or p == 76) then
+	  send("get qatel")
+		send("label remove qatel")
+  	send("label qatel as P")
+	elseif (p == 89 or p == 75) then
+	  send("get qatel")
+		send("label remove qatel")
+  	send("label qatel as E")
+	elseif (p == 88 or p == 74) then
+	  send("get qatel")
+		send("label remove qatel")
+  	send("label qatel as C")
+	elseif (p == 87 or p == 73) then
+	  send("get qatel")
+		send("label remove qatel")
+  	send("label qatel as F")
+	end
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>partyScripts</name>
+				<packageName></packageName>
+				<script>-------------------------------------------------
+--         Put your Lua functions here.        --
+--                                             --
+-- Note that you can also use external scripts --
+-------------------------------------------------
+
+function has_value (tab, val)
+    for index, value in ipairs(tab) do
+        if value == val then
+            return true
+        end
+    end
+
+    return false
+end
+
+function clearPartyObject (tab)
+	for key in pairs (tab) do
+		tab[key] = nil
+	end
+end
+
+function displayPartyObject (tab)
+	echo("\n    Listing Party Members(" .. tostring(table.getn(partyObj)) .. "):\n----------------------------------" )
+	for key in pairs (tab) do
+		echo("\n  Name: " .. firstToUpper(tab[key]) .. "\n    -&gt; Position: " .. key);
+	end
+	echo("\n----------------------------------") 
+end
+
+function toggleCombatOff ()
+  if (inCombat == true) then
+  	inCombat = false;
+	end
+end
+
+function chainCastParty (spellName)
+  if (partyIter &lt; partySize and chainCasting == true) then
+  	partyIter = partyIter + 1;
+  	echo("\nesong test " .. partyIter)
+  	send("cast " .. spellName .. " at " .. tostring(partyObj[partyIter]))
+  end
+end
+
+function loadParty ()
+  isLoadingPartyInfo = true;
+  isPartied = true;
+  clearPartyObject(partyObj);
+  send("pssa")
+end</script>
+				<eventHandlerList />
+			</Script>
+		</ScriptGroup>
 	</ScriptPackage>
 	<KeyPackage />
 	<VariablePackage>
